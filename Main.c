@@ -10,9 +10,22 @@
 *******************************************************/
 
 
+#include <ansi_c.h>
+#include <utility.h>
+#include "soundManager.h"
+#include "Structure.h"
+
+
 /**
   Fonction principale du programme
 **/
 void main(void) {
+
+	Start_Background_Musique();
+
+	GetKey();
 	
+	Play_Move_Sound();
+	
+	GetKey(); 
 }
