@@ -5,21 +5,8 @@
 **   Par Leonard Antoine <antoine.leonard@u-psud.fr> **
 **    et David   Pierre  <pierre.david1@u-psud.fr>   **
 **													 **
-**	 tous droits réservés							 **
+**	 tous droits rÃ©servÃ©s							 **
 ** 													 **
 *******************************************************/
 
-/**
-  Fichier pour la gestion du son du jeux
-**/
-#ifndef TETRIS_SOUNDMANAGER
-#define TETRIS_SOUNDMANAGER
-
-/**
-  Fonction pour lancer la musique en arriere plan
-**/
-short Start_Background_Musique(void);
-
-short Play_Move_Sound(void); 
-
-#endif
+#include "CallBack.h"

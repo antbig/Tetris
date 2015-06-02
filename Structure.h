@@ -12,7 +12,8 @@
 /**
 	Ce fichier contient les différentes structures utilisées dans le programme
 **/
-
+#ifndef TETRIS_STRUCTURE
+#define TETRIS_STRUCTURE
 /**
 	Les couleur possible
 **/
@@ -237,3 +238,5 @@ static Piece Pieces[8] = {
 	}
 	
 };
+
+#endif

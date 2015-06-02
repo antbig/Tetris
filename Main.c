@@ -14,18 +14,17 @@
 #include <utility.h>
 #include "soundManager.h"
 #include "Structure.h"
+#include "GuiManager.h" 
+#include "GameManager.h" 
 
 
 /**
   Fonction principale du programme
 **/
 void main(void) {
-
-	Start_Background_Musique();
-
-	GetKey();
 	
-	Play_Move_Sound();
+	Game_init();//On initialise le jeux
 	
-	GetKey(); 
+	Gui_init();//Le programme va attendre que l'utilisateur ferme la fenetre
+
 }

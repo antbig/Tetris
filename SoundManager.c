@@ -12,6 +12,8 @@
 #include <windows.h>
 #include <mmsystem.h>
 
+#include "SoundManager.h"
+
 /**
   Fonction pour lancer la musique en arriere plan
 **/
@@ -32,7 +34,7 @@ short Start_Background_Musique(void) {
 short Play_Move_Sound(void) {
 	UINT flags = 0;
 	
-	flags |= SND_ASYNC | SND_LOOP;  //Lecture en boucle
+	flags |= SND_ASYNC;  //Lecture en boucle
 	flags |= SND_NOSTOP; //On ne stop pas la musique en cours
 	
 	return sndPlaySound("musique/moveEvent.wav", flags);  

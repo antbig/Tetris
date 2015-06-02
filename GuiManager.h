@@ -5,21 +5,32 @@
 **   Par Leonard Antoine <antoine.leonard@u-psud.fr> **
 **    et David   Pierre  <pierre.david1@u-psud.fr>   **
 **													 **
-**	 tous droits réservés							 **
+**	 tous droits rÃ©servÃ©s							 **
 ** 													 **
 *******************************************************/
 
 /**
-  Fichier pour la gestion du son du jeux
+	Fichier pour gerer l'interface graphique
 **/
-#ifndef TETRIS_SOUNDMANAGER
-#define TETRIS_SOUNDMANAGER
+#ifndef TETRIS_GUIMANAGER
+#define TETRIS_GUIMANAGER
+
+
+
+
+
+#define PANEL					1
+#define PANEL_BACKGROUND		2
 
 /**
-  Fonction pour lancer la musique en arriere plan
+	Fonction pour initialiser l'interface
 **/
-short Start_Background_Musique(void);
+void Gui_init(void);
 
-short Play_Move_Sound(void); 
+/**
+	Pour supprimer la bordure de la fenetre
+**/
+void Gui_remove_Border(int panel, int image);
+
 
 #endif
