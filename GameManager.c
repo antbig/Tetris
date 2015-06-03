@@ -11,15 +11,23 @@
 
 #include "GameManager.h"
 #include "SoundManager.h"
+#include "GuiManager.h"
 
 static unsigned char Game_Pieces[9];
+
+static unsigned char Game_MAP[24][12];
+
+static unsigned char Game_etat = 0;
 
 /**
 	Pour initialiser la partie
 **/
 void Game_init(void) {
+	//On prepare l'interface
+	Gui_init();
+	
 	//On lance la musique
-	Start_Background_Musique(); 
+	//Start_Background_Musique(); 
 	
 	//On initialise la liste de pieces
 	Game_generate_piece();

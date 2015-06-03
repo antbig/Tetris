@@ -25,6 +25,6 @@ void main(void) {
 	
 	Game_init();//On initialise le jeux
 	
-	Gui_init();//Le programme va attendre que l'utilisateur ferme la fenetre
+	Gui_display();
 
 }
