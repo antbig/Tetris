@@ -26,4 +26,9 @@ int CVICALLBACK CALLBACK_CLOSE (int panel, int control, int event, void *callbac
 **/
 int CVICALLBACK CALLBACK_JOUER (int panel, int control, int event, void *callbackData, int eventData1, int eventData2);
 
+/**
+	Callback sur le timer du jeux
+**/
+int CVICALLBACK TimerCallback (int panel, int control, int event, void *callbackData, int eventData1, int eventData2);
+
 #endif

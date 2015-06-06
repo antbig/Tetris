@@ -17,7 +17,23 @@
 /**
 	Les couleur possible
 **/
-enum Color {Empty, Red, Green, Blue, Purple, Yellow, Aqua, Orange};
+#define EMPTY	0
+#define RED		1
+#define GREEN	2
+#define BLUE	3
+#define PURPLE	4
+#define YELLOW	5
+#define AQUA	6
+#define ORANGE	7
+
+/**
+	L'etat de la partie
+**/
+#define WAITING 	0 //En attente du debut de la partie
+#define INGAME		1 //En jeux
+#define PAUSE		2 //En pause
+#define LOSE		3 //Jeux perdu
+#define PROCESSING	4 //traitement en cours, on bloque les mouvements
 
 /*** Forme standare d'une piece
 {	{0 , 0, 0, 0},
@@ -40,13 +56,24 @@ typedef unsigned char COMPNENT[4][4];
 typedef struct
 {
 	COMPNENT	orientation[4];
-	enum Color	couleur;
+	int			couleur;
 }Piece;
+
+/**
+	La piece actuel
+**/
+typedef struct
+{
+	int piece_type;
+	int x;
+	int y;
+	int orientation;
+}PieceActuel;
 
 /**
 	Le liste de toutes les pieces du jeux
 **/
-static Piece Pieces[8] = {
+static Piece Pieces[7] = {
 	
 	//Le I
 	{
@@ -72,7 +99,7 @@ static Piece Pieces[8] = {
 				{0 , 0, 0, 0}
 			}
 		},
-		Aqua
+		AQUA
 	},
 	
 	//Le O
@@ -99,7 +126,7 @@ static Piece Pieces[8] = {
 				{0 , 0, 0, 0}
 			}
 		},
-		Yellow
+		YELLOW
 	},
 	
 	//Le T
@@ -126,7 +153,7 @@ static Piece Pieces[8] = {
 				{0 , 1, 0, 0}
 			}
 		},
-		Purple
+		PURPLE
 	},
 	
 	//Le S
@@ -153,7 +180,7 @@ static Piece Pieces[8] = {
 				{0 , 0, 1, 0}
 			}
 		},
-		Green
+		GREEN
 	},
 	
 	//Le Z
@@ -180,7 +207,7 @@ static Piece Pieces[8] = {
 				{0 , 1, 0, 0}
 			}
 		},
-		Red
+		RED
 	},
 	
 	//Le J
@@ -207,7 +234,7 @@ static Piece Pieces[8] = {
 				{0 , 1, 0, 0}
 			}
 		},
-		Blue
+		BLUE
 	},
 	
 	//Le L
@@ -234,7 +261,7 @@ static Piece Pieces[8] = {
 				{0 , 1, 1, 0}
 			}
 		},
-		Orange
+		ORANGE
 	}
 	
 };

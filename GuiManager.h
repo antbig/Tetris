@@ -16,14 +16,16 @@
 #define TETRIS_GUIMANAGER
 
 
-
+#include "Structure.h"
 
 
 #define PANEL					1
 #define PANEL_BACKGROUND		2
-#define PANEL_TABLE				3
-#define PANEL_JOUER				4
-#define PANEL_CLOSE				5
+#define PANEL_TABLE_NEXT		3
+#define PANEL_TABLE				4
+#define PANEL_JOUER				5
+#define PANEL_CLOSE				6
+#define PANEL_GAME_TIMER		7
 
 
 /**
@@ -47,9 +49,44 @@ void Gui_remove_Border(int panel, int image);
 int Gui_get_Interface(void);
 
 /**
+	Pour obtenir l'image à partir de la couleur
+**/
+int Gui_get_IMG(int color);
+
+/**
 	Pour rafraichir les cases
 **/
 void Gui_update_display(void);
+
+/**
+	Pour rafraichir les cases de la piece en mouvement
+**/
+void Gui_update_falling_piece(void);
+
+/**
+	Pour afficher la piece suivante
+**/
+void Gui_update_next_piece(void);
+
+/**
+	Pour activer le timer
+**/
+void Gui_Timer_enable(void);
+
+/**
+	Pour desactiver le timer
+**/
+void Gui_Timer_disable(void);
+
+/**
+	Pour savoir si le timer est activé
+**/
+int Gui_Timer_isEnable(void);
+
+/**
+	Pour definir l'interval du timer
+**/
+void Gui_Timer_set_interval(double interval);
 
 
 #endif

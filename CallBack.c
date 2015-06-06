@@ -13,6 +13,7 @@
 #include "CallBack.h"
 #include "GuiManager.h"
 #include "GameManager.h"
+#include "Structure.h"
 
 /**
 	Callback sur le bouton pour quitter le jeux
@@ -29,7 +30,32 @@ int CVICALLBACK CALLBACK_CLOSE (int panel, int control, int event, void *callbac
 **/
 int CVICALLBACK CALLBACK_JOUER (int panel, int control, int event, void *callbackData, int eventData1, int eventData2) {
 	if(event == 34) {//Click
+		if(Game_get_etat() == WAITING) {
+			Game_start();
+			SetCtrlAttribute (panel, control, ATTR_LABEL_TEXT , "STOP");
+		} else if(Game_get_etat() == INGAME) {
+			Game_stop();
+			SetCtrlAttribute (panel, control, ATTR_LABEL_TEXT , "JOUER");
+			
+		} else {
+			
+		}
 		
+	}
+	return 0;
+}
+
+/**
+	Callback sur le timer du jeux
+**/
+int CVICALLBACK TimerCallback (int panel, int control, int event, void *callbackData, int eventData1, int eventData2)
+{
+	switch (event)
+	{
+		case EVENT_TIMER_TICK:
+			if(Game_get_etat() != INGAME) return 0;
+			Game_Piece_fall();
+		break;
 	}
 	return 0;
 }
