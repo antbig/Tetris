@@ -215,6 +215,7 @@ void Game_generate_piece(void) {
 	Pour faire descendre une piece
 **/
 void Game_Piece_fall(void) {
+	Game_etat = PROCESSING;
 	//1 -> on affiche la piece
 	Game_Piece_Actuel.y += 1;
 	Gui_update_display();
@@ -223,6 +224,8 @@ void Game_Piece_fall(void) {
 	if(Game_check_collision()) {
 		Game_change_piece();
 	}
+	if(Game_etat == PROCESSING)
+		Game_etat = INGAME;
 }
 
 /**
