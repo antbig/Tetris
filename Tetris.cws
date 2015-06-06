@@ -53,7 +53,7 @@ In Projects = "1,"
 Window Top = 126
 Window Left = 58
 Window Z-Order = 1
-Source Window State = "1,27,27,27,4,79,79,0,0,208,0,0,0,0,0,39,15,0,30,44,349,683,1,0,"
+Source Window State = "1,0,29,29,0,3,3,0,0,208,0,0,0,0,0,45,0,0,19,23,349,683,1,0,"
 
 [File 0002]
 Path = "/c/Program Files (x86)/National Instruments/CVI2013/sdk/include/WinDef.h"
@@ -97,31 +97,31 @@ Window Z-Order = 4
 Source Window State = "1,960,960,960,8,15,15,0,3,80,0,0,0,0,0,25,957,0,960,8,349,683,1,0,"
 
 [File 0006]
+Path = "/d/Programmation/c/Tetris/CallBack.c"
+File Type = "CSource"
+Disk Date = 3516461191
+In Projects = "1,"
+Window Top = 157
+Window Left = 74
+Source Window State = "1,75,75,75,4,26,26,0,0,0,0,0,0,0,0,0,56,0,75,20,349,747,1,0,"
+
+[File 0007]
+Path = "/d/Programmation/c/Tetris/GameManager.c"
+File Type = "CSource"
+Disk Date = 3516462738
+In Projects = "1,"
+Window Top = 157
+Window Left = 74
+Source Window State = "1,197,197,197,10,15,15,0,3,0,0,0,0,0,0,0,167,0,197,10,349,731,1,0,"
+
+[File 0008]
 Path = "/d/Programmation/c/Tetris/GuiManager.c"
 File Type = "CSource"
 Disk Date = 3516460763
 In Projects = "1,"
 Window Top = 188
 Window Left = 38
-Source Window State = "1,257,257,257,150,162,162,0,0,86,0,0,0,0,0,25,237,0,257,17,349,731,1,0,"
-
-[File 0007]
-Path = "/d/Programmation/c/Tetris/CallBack.c"
-File Type = "CSource"
-Disk Date = 3516459597
-In Projects = "1,"
-Window Top = 157
-Window Left = 74
-Source Window State = "1,75,75,75,4,26,26,0,0,88,0,0,0,0,0,25,56,0,75,20,349,747,1,0,"
-
-[File 0008]
-Path = "/d/Programmation/c/Tetris/GameManager.c"
-File Type = "CSource"
-Disk Date = 3516460919
-In Projects = "1,"
-Window Top = 157
-Window Left = 74
-Source Window State = "1,197,197,197,10,15,15,0,3,86,0,0,0,0,0,25,167,0,197,10,349,731,1,0,"
+Source Window State = "1,257,257,257,150,162,162,0,0,0,0,0,0,0,0,0,237,0,257,17,349,731,1,0,"
 
 [File 0009]
 Path = "/d/Programmation/c/Tetris/SoundManager.c"
@@ -157,7 +157,7 @@ Disk Date = 3516452977
 In Projects = "1,"
 Window Top = 33
 Window Left = 10
-Source Window State = "1,0,0,0,0,0,0,0,0,80,0,0,0,0,0,25,0,0,17,22,349,683,1,0,"
+Source Window State = "1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,17,22,349,683,1,0,"
 
 [File 0013]
 Path = "/d/Programmation/c/Tetris/GuiManager.h"
@@ -184,7 +184,7 @@ Disk Date = 3516456415
 In Projects = "1,"
 Window Top = 405
 Window Left = 202
-Source Window State = "1,212,212,212,6,8,8,0,0,86,0,0,0,0,0,25,36,0,81,8,349,731,1,0,"
+Source Window State = "1,212,212,212,6,8,8,0,0,0,0,0,0,0,0,0,36,0,81,8,349,731,1,0,"
 
 [File 0016]
 Path = "/d/Programmation/c/Tetris/Utils.h"

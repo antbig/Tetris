@@ -87,6 +87,11 @@ void Game_Piece_move_left(void);
 void Game_Piece_rotation(void);
 
 /**
+	Pour verifier que la piece est dans une position correcte
+**/
+int Game_check_position(PieceActuel piece);
+
+/**
 	Pour verifier si la piece n'est pas au plus bas de sa capacité
 **/
 int Game_check_collision(void);

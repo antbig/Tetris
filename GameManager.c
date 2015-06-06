@@ -314,28 +314,72 @@ void Game_Piece_move_left(void) {
 	Pour faire tourner une piece
 **/
 void Game_Piece_rotation(void) {
+	
 	int newOrientation = Game_Piece_Actuel.orientation + 1;
 	if(newOrientation >3) newOrientation = 0;
 	
-	for(int x = 0; x<4; x++) {
-		for(int y = 0; y<4; y++) {
-			if(Pieces[Game_Piece_Actuel.piece_type].orientation[newOrientation][x][y] != 0) { //ce n'est pas du vide
-				if(Game_Piece_Actuel.x + x <12 && Game_Piece_Actuel.x +x >0 && Game_Piece_Actuel.y + y <24  && Game_Piece_Actuel.y + y > 0) { //Le carre est dans le terrain d'affichage
-					if(Game_MAP[Game_Piece_Actuel.y + y][Game_Piece_Actuel.x + x] != 0) {
-						printf("movement impossible 1\n");
+	PieceActuel testPosition = Game_Piece_Actuel;
+	testPosition.orientation = newOrientation;
+	
+	if(!Game_check_position(testPosition)) {
+
+		if(Game_Piece_Actuel.x >=5) { //On tente une correction vers la gauche
+			testPosition.x -=1;
+			if(!Game_check_position(testPosition)) {
+				testPosition.x +=2;
+				if(!Game_check_position(testPosition)) {
+					testPosition.y +=1;
+					if(!Game_check_position(testPosition)) {
+						testPosition.x -=2;
+						if(!Game_check_position(testPosition)) {
+							return;
+						}
 					}
-				} else printf("movement impossible 2\n");
+				}
+			}
+		} else { //On tente une correction vers la droite
+			testPosition.x +=1;
+			if(!Game_check_position(testPosition)) {
+				testPosition.x -=2;
+				if(!Game_check_position(testPosition)) {
+					testPosition.y +=1;
+					if(!Game_check_position(testPosition)) {
+						testPosition.x -=2;
+						if(!Game_check_position(testPosition)) {
+							return;
+						}
+					}
+				}
 			}
 		}
 	}
 	
-	
-	Game_Piece_Actuel.orientation = newOrientation;
-	Gui_update_display();
+	Gui_clear_old_piece(Game_Piece_Actuel);
+	Game_Piece_Actuel = testPosition;
+	//Gui_update_display();
 	Gui_update_falling_piece();
 	if(Game_check_collision()) {
 		Game_change_piece();
 	}
+}
+
+/**
+	Pour verifier que la piece est dans une position correcte
+**/
+int Game_check_position(PieceActuel piece) {
+	
+	for(int x = 0; x<4; x++) {
+		for(int y = 0; y<4; y++) {
+			if(Pieces[piece.piece_type].orientation[piece.orientation][y][x] != 0) { //ce n'est pas du vide
+				if(piece.x + x <11 && piece.x + x >0 && piece.y + y <24  && piece.y + y > 0) { //Le carre est dans le terrain d'affichage
+					if(Game_MAP[piece.y + y][piece.x + x] != 0) {
+						return 0;
+					}
+				} else return 0;
+			}
+		}
+	}
+	return 1;
 }
 
 /**
