@@ -29,11 +29,13 @@
 /**
 	L'etat de la partie
 **/
-#define WAITING 	0 //En attente du debut de la partie
-#define INGAME		1 //En jeux
-#define PAUSE		2 //En pause
-#define LOSE		3 //Jeux perdu
-#define PROCESSING	4 //traitement en cours, on bloque les mouvements
+#define WAITING 		0 //En attente du debut de la partie
+#define INGAME			1 //En jeux
+#define PAUSE			2 //En pause
+#define LOSE			3 //Jeux perdu
+#define PROCESSING		4 //traitement en cours, on bloque les mouvements
+#define PROCESSING_T	5 //traitement en cours, on bloque les mouvements
+
 
 /*** Forme standare d'une piece
 {	{0 , 0, 0, 0},

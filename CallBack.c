@@ -8,6 +8,7 @@
 **	 tous droits réservés							 **
 ** 													 **
 *******************************************************/
+#include <ansi_c.h>
 #include <userint.h>
 #include <cvirte.h>	
 #include "CallBack.h"
@@ -69,10 +70,15 @@ int CVICALLBACK PANEL_CALLBACK (int panel, int event, void *callbackData, int ev
 	{
 		case EVENT_KEYPRESS:
 			if(eventData1 == VAL_RIGHT_ARROW_VKEY ) {
+				
 				Game_Piece_move_right();
+				
 			} else if(eventData1 == VAL_LEFT_ARROW_VKEY ) {
+				
 				Game_Piece_move_left();
+				
 			} else if(eventData1 == VAL_UP_ARROW_VKEY ) {
+
 				Game_Piece_rotation();
 			}
 			

@@ -88,5 +88,9 @@ int Gui_Timer_isEnable(void);
 **/
 void Gui_Timer_set_interval(double interval);
 
+/**
+	Pour supprimer l'ancienne piece
+**/
+void Gui_clear_old_piece(PieceActuel piece);
 
 #endif

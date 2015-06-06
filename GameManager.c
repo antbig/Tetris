@@ -27,6 +27,8 @@ static unsigned char	Game_etat = WAITING;
 
 static PieceActuel		Game_Piece_Actuel;
 
+static char				needProcessingTimer = 0;
+
 /**
 	Pour initialiser la partie
 **/
@@ -139,7 +141,7 @@ void Game_change_piece(void) {
 	for(int x = 0; x<4; x++) {
 		for(int y = 0; y<4; y++) {
 			if(Pieces[Game_Piece_Actuel.piece_type].orientation[Game_Piece_Actuel.orientation][y][x] != 0) { //ce n'est pas du vide
-				if(Game_Piece_Actuel.x + x <12 && Game_Piece_Actuel.x +x >0 && Game_Piece_Actuel.y + y <24  && Game_Piece_Actuel.y + y > 0) { //La piece est dans la terrain d'affichage
+				if(Game_Piece_Actuel.x + x <11 && Game_Piece_Actuel.x +x >0 && Game_Piece_Actuel.y + y <24  && Game_Piece_Actuel.y + y > 0) { //La piece est dans la terrain d'affichage
 					Game_MAP[Game_Piece_Actuel.y + y][Game_Piece_Actuel.x + x] = color;
 				}
 			}
@@ -215,59 +217,97 @@ void Game_generate_piece(void) {
 	Pour faire descendre une piece
 **/
 void Game_Piece_fall(void) {
-	Game_etat = PROCESSING;
+	//unsigned int timeSpend = clock();
+	if(Game_etat != INGAME) {
+		needProcessingTimer = 1;
+		return;
+	}
+	needProcessingTimer = 0;
+	Game_etat = PROCESSING_T;
 	//1 -> on affiche la piece
+	Gui_clear_old_piece(Game_Piece_Actuel);
 	Game_Piece_Actuel.y += 1;
-	Gui_update_display();
+	//Gui_update_display();
 	Gui_update_falling_piece();
 	//2 -> on regarde si il y a pas de colision
 	if(Game_check_collision()) {
 		Game_change_piece();
 	}
-	if(Game_etat == PROCESSING)
+	if(Game_etat == PROCESSING_T)
 		Game_etat = INGAME;
+	//printf("time=%d\n",clock()-timeSpend);
 }
 
 /**
 	Pour décaler une piece vers la droite
 **/
 void Game_Piece_move_right(void) {
+	Game_etat = PROCESSING;
 	//On regarde si la piece ne va pas sortir du champ
-	if(Game_Piece_Actuel.x >=11) return;
+	if(Game_Piece_Actuel.x >=11) {
+		Game_etat = INGAME;
+		return;
+	}
 	for(int x = 3; x>=0; x--) {
 		for(int y = 0; y<4; y++) {
 			if(Pieces[Game_Piece_Actuel.piece_type].orientation[Game_Piece_Actuel.orientation][y][x] != 0) { //ce n'est pas du vide
-				if(Game_Piece_Actuel.x + x >=10) return;
+				if(Game_Piece_Actuel.x + x >=10) {
+					Game_etat = INGAME;
+					return;
+				} else if(Game_MAP[Game_Piece_Actuel.y + y][Game_Piece_Actuel.x + x + 1] != 0) {
+					Game_etat = INGAME;
+					return;
+				}
 			}
 		}
 	}
+	Gui_clear_old_piece(Game_Piece_Actuel);
 	Game_Piece_Actuel.x += 1;
-	Gui_update_display();
+	//Gui_update_display();
 	Gui_update_falling_piece();
 	if(Game_check_collision()) {
 		Game_change_piece();
 	}
+	if(Game_etat == PROCESSING)
+		Game_etat = INGAME;
+	if(needProcessingTimer)
+		Game_Piece_fall();
 }
 
 /**
 	Pour décaler une piece vers la gauche
 **/
 void Game_Piece_move_left(void) {
+	Game_etat = PROCESSING;
 	//On regarde si la piece ne va pas sortir du champ
-	if(Game_Piece_Actuel.x <= 0) return;
+	if(Game_Piece_Actuel.x <= 0)  {
+		Game_etat = INGAME;
+		return;
+	}
 	for(int x = 0; x<4; x++) {
 		for(int y = 0; y<4; y++) {
 			if(Pieces[Game_Piece_Actuel.piece_type].orientation[Game_Piece_Actuel.orientation][y][x] != 0) { //ce n'est pas du vide
-				if(Game_Piece_Actuel.x-1 + x <1 ) return;
+				if(Game_Piece_Actuel.x-1 + x <1 )  {
+					Game_etat = INGAME;
+					return;
+				} else if(Game_MAP[Game_Piece_Actuel.y + y][Game_Piece_Actuel.x + x - 1] != 0) {
+					Game_etat = INGAME;
+					return;
+				}
 			}
 		}
 	}
+	Gui_clear_old_piece(Game_Piece_Actuel);
 	Game_Piece_Actuel.x -= 1;
-	Gui_update_display();
+	//Gui_update_display();
 	Gui_update_falling_piece();
 	if(Game_check_collision()) {
 		Game_change_piece();
 	}
+	if(Game_etat == PROCESSING)
+		Game_etat = INGAME;
+	if(needProcessingTimer)
+		Game_Piece_fall();
 }
 
 /**
@@ -280,7 +320,7 @@ void Game_Piece_rotation(void) {
 	for(int x = 0; x<4; x++) {
 		for(int y = 0; y<4; y++) {
 			if(Pieces[Game_Piece_Actuel.piece_type].orientation[newOrientation][x][y] != 0) { //ce n'est pas du vide
-				if(Game_Piece_Actuel.x + x <11 && Game_Piece_Actuel.x +x >0 && Game_Piece_Actuel.y + y <24  && Game_Piece_Actuel.y + y > 0) { //Le carre est dans le terrain d'affichage
+				if(Game_Piece_Actuel.x + x <12 && Game_Piece_Actuel.x +x >0 && Game_Piece_Actuel.y + y <24  && Game_Piece_Actuel.y + y > 0) { //Le carre est dans le terrain d'affichage
 					if(Game_MAP[Game_Piece_Actuel.y + y][Game_Piece_Actuel.x + x] != 0) {
 						printf("movement impossible 1\n");
 					}

@@ -248,3 +248,15 @@ int Gui_Timer_isEnable(void) {
 void Gui_Timer_set_interval(double interval) {
 	SetCtrlAttribute (panelHandle, PANEL_GAME_TIMER, ATTR_INTERVAL, interval);
 }
+
+/**
+	Pour supprimer l'ancienne piece
+**/
+void Gui_clear_old_piece(PieceActuel piece) {
+	for(int x = 0; x<4; x++) {
+		for(int y= 0; y<4; y++) {
+			if(piece.x + x <11 && piece.x +x >0 && piece.y + y <24  && piece.y + y > 0) 
+				SetTableCellAttribute(panelHandle, PANEL_TABLE, MakePoint(piece.x + x, piece.y + y), ATTR_CTRL_VAL, Gui_get_IMG(Game_get_MAP(piece.y + y, piece.x + x)));
+		}
+	}
+}
