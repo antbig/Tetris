@@ -50,7 +50,7 @@ void Game_start(void) {
 	
 	
 	srand(clock());
-	//On initialise la liste de pieces
+	//On initialise la liste des pieces
 	for(int i =0; i<9; i++) {
 		Game_Pieces[i] = -1;
 	}
@@ -138,7 +138,7 @@ void Game_change_piece(void) {
 	//On fige la piece actuel sur le terrain
 	for(int x = 0; x<4; x++) {
 		for(int y = 0; y<4; y++) {
-			if(Pieces[Game_Piece_Actuel.piece_type].orientation[Game_Piece_Actuel.orientation][x][y] != 0) { //ce n'est pas du vide
+			if(Pieces[Game_Piece_Actuel.piece_type].orientation[Game_Piece_Actuel.orientation][y][x] != 0) { //ce n'est pas du vide
 				if(Game_Piece_Actuel.x + x <12 && Game_Piece_Actuel.x +x >0 && Game_Piece_Actuel.y + y <24  && Game_Piece_Actuel.y + y > 0) { //La piece est dans la terrain d'affichage
 					Game_MAP[Game_Piece_Actuel.y + y][Game_Piece_Actuel.x + x] = color;
 				}
@@ -229,16 +229,55 @@ void Game_Piece_fall(void) {
 	Pour décaler une piece vers la droite
 **/
 void Game_Piece_move_right(void) {
-	//On ragarde si la piece ne va pas sortir du champ
-	
-	
+	//On regarde si la piece ne va pas sortir du champ
+	if(Game_Piece_Actuel.x >=11) return;
+	for(int x = 3; x>=0; x--) {
+		for(int y = 0; y<4; y++) {
+			if(Pieces[Game_Piece_Actuel.piece_type].orientation[Game_Piece_Actuel.orientation][y][x] != 0) { //ce n'est pas du vide
+				if(Game_Piece_Actuel.x + x >=10) return;
+			}
+		}
+	}
+	Game_Piece_Actuel.x += 1;
+	Gui_update_display();
+	Gui_update_falling_piece();
+	if(Game_check_collision()) {
+		Game_change_piece();
+	}
 }
 
 /**
-	Pour décaler une piece vers la droite
+	Pour décaler une piece vers la gauche
 **/
 void Game_Piece_move_left(void) {
-	
+	//On regarde si la piece ne va pas sortir du champ
+	if(Game_Piece_Actuel.x <= 0) return;
+	for(int x = 0; x<4; x++) {
+		for(int y = 0; y<4; y++) {
+			if(Pieces[Game_Piece_Actuel.piece_type].orientation[Game_Piece_Actuel.orientation][y][x] != 0) { //ce n'est pas du vide
+				if(Game_Piece_Actuel.x - x <0 ) return;
+			}
+		}
+	}
+	Game_Piece_Actuel.x -= 1;
+	Gui_update_display();
+	Gui_update_falling_piece();
+	if(Game_check_collision()) {
+		Game_change_piece();
+	}
+}
+
+/**
+	Pour faire tourner une piece
+**/
+void Game_Piece_rotation(void) {
+	Game_Piece_Actuel.orientation += 1;
+	if(Game_Piece_Actuel.orientation >3) Game_Piece_Actuel.orientation = 0;
+	Gui_update_display();
+	Gui_update_falling_piece();
+	if(Game_check_collision()) {
+		Game_change_piece();
+	}
 }
 
 /**
@@ -248,7 +287,7 @@ int Game_check_collision(void) {
 	
 	for(int x = 0; x<4; x++) {
 		for(int y = 3; y>=0; y--) {
-			if(Pieces[Game_Piece_Actuel.piece_type].orientation[Game_Piece_Actuel.orientation][x][y] != 0) { //ce n'est pas du vide
+			if(Pieces[Game_Piece_Actuel.piece_type].orientation[Game_Piece_Actuel.orientation][y][x] != 0) { //ce n'est pas du vide
 				if(Game_Piece_Actuel.x + x <12 && Game_Piece_Actuel.x +x >0 && Game_Piece_Actuel.y + y <24  && Game_Piece_Actuel.y + y > 0) { //La piece est dans la terrain d'affichage
 					if(Game_Piece_Actuel.y + y +1 >22) { //La piece est en bas
 						return 1;

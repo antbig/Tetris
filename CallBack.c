@@ -59,3 +59,24 @@ int CVICALLBACK TimerCallback (int panel, int control, int event, void *callback
 	}
 	return 0;
 }
+
+/**
+	Callback sur le panel, permet d'obtenir les fleches
+**/
+int CVICALLBACK PANEL_CALLBACK (int panel, int event, void *callbackData, int eventData1, int eventData2) {
+	if(Game_get_etat() != INGAME) return 0;
+	switch (event)
+	{
+		case EVENT_KEYPRESS:
+			if(eventData1 == VAL_RIGHT_ARROW_VKEY ) {
+				Game_Piece_move_right();
+			} else if(eventData1 == VAL_LEFT_ARROW_VKEY ) {
+				Game_Piece_move_left();
+			} else if(eventData1 == VAL_UP_ARROW_VKEY ) {
+				Game_Piece_rotation();
+			}
+			
+		break;
+	}
+	return 0;
+}

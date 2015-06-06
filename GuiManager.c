@@ -195,7 +195,7 @@ void Gui_update_falling_piece(void) {
 	
 	for(int x = 0; x<4; x++) {
 		for(int y = 0; y<4; y++) {
-			if(Pieces[Piece_Actuel.piece_type].orientation[Piece_Actuel.orientation][x][y] != 0) { //ce n'est pas du vide
+			if(Pieces[Piece_Actuel.piece_type].orientation[Piece_Actuel.orientation][y][x] != 0) { //ce n'est pas du vide
 				if(Piece_Actuel.x + x <12 && Piece_Actuel.x +x >0 && Piece_Actuel.y + y <24  && Piece_Actuel.y + y > 0) { //La piece est dans la terrain d'affichage
 					SetTableCellAttribute(panelHandle, PANEL_TABLE, MakePoint(Piece_Actuel.x + x, Piece_Actuel.y + y), ATTR_CTRL_VAL, Gui_get_IMG(Pieces[Piece_Actuel.piece_type].couleur));
 				}
@@ -211,7 +211,7 @@ void Gui_update_next_piece(void)  {
 	char piece = Game_get_next_piece();
 	for(int x = 1; x<=4; x++) {
 		for(int y= 1; y<=4; y++) {
-			if(Pieces[piece].orientation[0][x-1][y-1])
+			if(Pieces[piece].orientation[0][y-1][x-1])
 				SetTableCellAttribute(panelHandle, PANEL_TABLE_NEXT, MakePoint(x, y), ATTR_CTRL_VAL, Gui_get_IMG(Pieces[piece].couleur));
 			else
 				SetTableCellAttribute(panelHandle, PANEL_TABLE_NEXT, MakePoint(x, y), ATTR_CTRL_VAL, IMG_Empty);

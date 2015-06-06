@@ -82,6 +82,11 @@ void Game_Piece_move_right(void);
 void Game_Piece_move_left(void);
 
 /**
+	Pour faire tourner une piece
+**/
+void Game_Piece_rotation(void);
+
+/**
 	Pour verifier si la piece n'est pas au plus bas de sa capacité
 **/
 int Game_check_collision(void);

@@ -14,7 +14,7 @@
 
      /* Panels and Controls: */
 
-#define  PANEL                            1
+#define  PANEL                            1       /* callback function: PANEL_CALLBACK */
 #define  PANEL_BACKGROUND                 2       /* control type: picture, callback function: (none) */
 #define  PANEL_TABLE_NEXT                 3       /* control type: table, callback function: (none) */
 #define  PANEL_TABLE                      4       /* control type: table, callback function: (none) */
@@ -37,6 +37,7 @@
 
 int  CVICALLBACK CALLBACK_CLOSE(int panel, int control, int event, void *callbackData, int eventData1, int eventData2);
 int  CVICALLBACK CALLBACK_JOUER(int panel, int control, int event, void *callbackData, int eventData1, int eventData2);
+int  CVICALLBACK PANEL_CALLBACK(int panel, int event, void *callbackData, int eventData1, int eventData2);
 int  CVICALLBACK TimerCallback(int panel, int control, int event, void *callbackData, int eventData1, int eventData2);
 
 

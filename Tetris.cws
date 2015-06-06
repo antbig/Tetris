@@ -78,7 +78,7 @@ Source Window State = "1,206,206,206,29,33,33,0,3,86,0,0,0,0,0,25,197,0,206,29,3
 [File 0004]
 Path = "/d/Programmation/c/Tetris/Interface.uir"
 File Type = "User Interface Resource"
-Disk Date = 3516441838
+Disk Date = 3516448898
 In Projects = "1,"
 Window Top = 33
 Window Left = 10
@@ -99,16 +99,16 @@ Source Window State = "1,960,960,960,8,15,15,0,3,80,0,0,0,0,0,25,957,0,960,8,349
 [File 0006]
 Path = "/d/Programmation/c/Tetris/GuiManager.c"
 File Type = "CSource"
-Disk Date = 3516442791
+Disk Date = 3516451274
 In Projects = "1,"
 Window Top = 188
 Window Left = 38
-Source Window State = "1,239,239,239,8,16,16,0,0,86,0,0,0,0,0,25,225,0,241,20,349,731,1,0,"
+Source Window State = "1,239,239,239,8,16,16,0,0,86,0,0,0,0,0,25,77,0,89,4,349,731,1,0,"
 
 [File 0007]
 Path = "/d/Programmation/c/Tetris/CallBack.c"
 File Type = "CSource"
-Disk Date = 3516441508
+Disk Date = 3516449393
 In Projects = "1,"
 Window Top = 157
 Window Left = 74
@@ -117,11 +117,11 @@ Source Window State = "1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,0,31,11,349,747,1,0,"
 [File 0008]
 Path = "/d/Programmation/c/Tetris/GameManager.c"
 File Type = "CSource"
-Disk Date = 3516443106
+Disk Date = 3516451068
 In Projects = "1,"
 Window Top = 157
 Window Left = 74
-Source Window State = "1,108,108,108,0,11,11,0,0,86,0,0,0,0,0,25,39,0,54,28,349,731,1,0,"
+Source Window State = "1,108,108,108,0,11,11,0,0,86,0,0,0,0,0,25,244,0,256,15,349,731,1,0,"
 
 [File 0009]
 Path = "/d/Programmation/c/Tetris/SoundManager.c"
@@ -144,7 +144,7 @@ Source Window State = "1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,349,683,1,0,"
 [File 0011]
 Path = "/d/Programmation/c/Tetris/CallBack.h"
 File Type = "Include"
-Disk Date = 3516436886
+Disk Date = 3516448796
 In Projects = "1,"
 Window Top = 157
 Window Left = 74
@@ -153,7 +153,7 @@ Source Window State = "1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,20,15,349,683,1,0,"
 [File 0012]
 Path = "/d/Programmation/c/Tetris/GameManager.h"
 File Type = "Include"
-Disk Date = 3516440876
+Disk Date = 3516443293
 In Projects = "1,"
 Window Top = 33
 Window Left = 10
@@ -180,7 +180,7 @@ Source Window State = "1,21,21,21,0,28,28,0,3,0,0,20,0,20,0,0,0,0,21,0,349,731,1
 [File 0015]
 Path = "/d/Programmation/c/Tetris/Structure.h"
 File Type = "Include"
-Disk Date = 3516435774
+Disk Date = 3516443198
 In Projects = "1,"
 Window Top = 405
 Window Left = 202
