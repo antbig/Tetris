@@ -255,7 +255,7 @@ void Game_Piece_move_left(void) {
 	for(int x = 0; x<4; x++) {
 		for(int y = 0; y<4; y++) {
 			if(Pieces[Game_Piece_Actuel.piece_type].orientation[Game_Piece_Actuel.orientation][y][x] != 0) { //ce n'est pas du vide
-				if(Game_Piece_Actuel.x - x <0 ) return;
+				if(Game_Piece_Actuel.x-1 + x <1 ) return;
 			}
 		}
 	}
@@ -271,8 +271,23 @@ void Game_Piece_move_left(void) {
 	Pour faire tourner une piece
 **/
 void Game_Piece_rotation(void) {
-	Game_Piece_Actuel.orientation += 1;
-	if(Game_Piece_Actuel.orientation >3) Game_Piece_Actuel.orientation = 0;
+	int newOrientation = Game_Piece_Actuel.orientation + 1;
+	if(newOrientation >3) newOrientation = 0;
+	
+	for(int x = 0; x<4; x++) {
+		for(int y = 0; y<4; y++) {
+			if(Pieces[Game_Piece_Actuel.piece_type].orientation[newOrientation][x][y] != 0) { //ce n'est pas du vide
+				if(Game_Piece_Actuel.x + x <11 && Game_Piece_Actuel.x +x >0 && Game_Piece_Actuel.y + y <24  && Game_Piece_Actuel.y + y > 0) { //Le carre est dans le terrain d'affichage
+					if(Game_MAP[Game_Piece_Actuel.y + y][Game_Piece_Actuel.x + x] != 0) {
+						printf("movement impossible 1\n");
+					}
+				} else printf("movement impossible 2\n");
+			}
+		}
+	}
+	
+	
+	Game_Piece_Actuel.orientation = newOrientation;
 	Gui_update_display();
 	Gui_update_falling_piece();
 	if(Game_check_collision()) {
