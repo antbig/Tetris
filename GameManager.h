@@ -96,4 +96,14 @@ int Game_check_position(PieceActuel piece);
 **/
 int Game_check_collision(void);
 
+/**
+	Pour detetcter les lignes completes
+**/
+void Game_check_complete_line(void);
+
+/**
+	Pour supprimer une ligne
+**/
+void Game_remove_line(int line);
+
 #endif

@@ -66,9 +66,15 @@ void Game_start(void) {
 			Game_MAP[y][x] = 0;
 		}
 	}
+	for(int x =2; x<11; x++) {
+		for(int y =22; y>18; y--) {
+			Game_MAP[y][x] = rand()%6 +1;
+		}
+	}
 	
 	//On initialise la piece actuel
-	Game_Piece_Actuel.piece_type = Game_Pieces[0];
+	//Game_Piece_Actuel.piece_type = Game_Pieces[0];
+	Game_Piece_Actuel.piece_type = 0;//pour le test
 	Game_Piece_Actuel.x = 4;
 	Game_Piece_Actuel.y = 0;
 	Game_Piece_Actuel.orientation = 0;
@@ -147,6 +153,7 @@ void Game_change_piece(void) {
 			}
 		}
 	}
+	Game_check_complete_line();
 	//On actualise l'affichage static
 	Gui_update_display();
 	
@@ -404,4 +411,44 @@ int Game_check_collision(void) {
 	}
 	
 	return 0;
+}
+
+/**
+	Pour detetcter les lignes completes
+**/
+void Game_check_complete_line(void) {
+		
+	int count = 0;
+	
+	int y = 3;
+	
+	while(y>=0) {
+		count = 0;
+		if(Game_Piece_Actuel.y + y < 23 && Game_Piece_Actuel.y + y > 0) {
+			for(int x = 1; x<11; x++) {
+				if(Game_MAP[Game_Piece_Actuel.y + y][x] != 0) count++;
+			}
+			if(count == 10) {//La line est complete
+				Game_remove_line(Game_Piece_Actuel.y + y);
+				/** TODO
+					score
+				**/
+			} else y--;
+		} else y--;
+	}
+}
+
+/**
+	Pour supprimer une ligne
+**/
+void Game_remove_line(int line) {
+	for(int y = line; y>1; y--) {
+		for(int x = 1; x<11; x++) {
+			Game_MAP[y][x] = Game_MAP[y-1][x];
+		}
+	}
+	for(int x = 1; x<11; x++) {
+		Game_MAP[0][x] = 0;
+	}
+	Gui_update_display();
 }
