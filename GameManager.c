@@ -84,7 +84,6 @@ void Game_start(void) {
 	
 	//On initialise la piece fantome
 	Game_piece_ghost = Game_Piece_Actuel;
-	Game_piece_ghost.y = 19;
 	
 	//On lance la musique
 	Start_Background_Musique(); 
@@ -487,11 +486,10 @@ void Game_remove_line(int line) {
 void Game_update_ghost_piece(void) {
 	Gui_clear_old_piece(Game_piece_ghost);
 	Game_piece_ghost = Game_Piece_Actuel;
-	Game_piece_ghost.y = 20;
-	while(!Game_check_position(Game_piece_ghost)) {
-		Game_piece_ghost.y -=1;
+	while(Game_check_position(Game_piece_ghost)) {
+		Game_piece_ghost.y +=1;
 	}
-	//Game_piece_ghost.y -=1;
+	Game_piece_ghost.y -=1;
 	
 	Gui_display_gosth(Game_piece_ghost);
 }
