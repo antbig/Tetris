@@ -99,29 +99,29 @@ Source Window State = "1,960,960,960,8,15,15,0,3,80,0,0,0,0,0,25,957,0,960,8,349
 [File 0006]
 Path = "/d/Programmation/c/Tetris/CallBack.c"
 File Type = "CSource"
-Disk Date = 3516461191
+Disk Date = 3516541897
 In Projects = "1,"
 Window Top = 157
 Window Left = 74
-Source Window State = "1,75,75,75,4,26,26,0,0,0,0,0,0,0,0,0,56,0,75,20,349,747,1,0,"
+Source Window State = "1,16,16,16,10,20,20,0,3,0,0,0,0,0,0,0,0,0,16,10,349,747,1,0,"
 
 [File 0007]
 Path = "/d/Programmation/c/Tetris/GameManager.c"
 File Type = "CSource"
-Disk Date = 3516517096
+Disk Date = 3516526507
 In Projects = "1,"
 Window Top = 157
 Window Left = 74
-Source Window State = "1,435,435,435,14,23,14,0,0,86,0,0,0,0,0,25,370,0,392,19,349,731,1,0,"
+Source Window State = "1,435,435,435,14,23,14,0,0,0,0,0,0,0,0,0,370,0,392,19,349,731,1,0,"
 
 [File 0008]
 Path = "/d/Programmation/c/Tetris/GuiManager.c"
 File Type = "CSource"
-Disk Date = 3516517079
+Disk Date = 3516524943
 In Projects = "1,"
 Window Top = 188
 Window Left = 38
-Source Window State = "1,284,284,284,116,125,125,0,0,86,0,0,0,0,0,25,0,0,22,98,349,731,1,0,"
+Source Window State = "1,24,24,24,0,28,28,0,0,0,0,0,0,0,0,0,88,0,100,25,349,731,1,0,"
 
 [File 0009]
 Path = "/d/Programmation/c/Tetris/SoundManager.c"
@@ -144,7 +144,7 @@ Source Window State = "1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,349,683,1,0,"
 [File 0011]
 Path = "/d/Programmation/c/Tetris/CallBack.h"
 File Type = "Include"
-Disk Date = 3516448796
+Disk Date = 3516524083
 In Projects = "1,"
 Window Top = 157
 Window Left = 74
@@ -162,7 +162,7 @@ Source Window State = "1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,17,22,349,683,1,0,"
 [File 0013]
 Path = "/d/Programmation/c/Tetris/GuiManager.h"
 File Type = "Include"
-Disk Date = 3516516645
+Disk Date = 3516524849
 In Projects = "1,"
 Window Top = 188
 Window Left = 90
@@ -184,7 +184,7 @@ Disk Date = 3516516657
 In Projects = "1,"
 Window Top = 405
 Window Left = 202
-Source Window State = "1,212,212,212,6,8,8,0,0,0,0,0,0,0,0,0,36,0,81,8,349,731,1,0,"
+Source Window State = "1,212,212,212,6,8,8,0,0,0,0,0,0,0,0,0,65,0,77,13,349,731,1,0,"
 
 [File 0016]
 Path = "/d/Programmation/c/Tetris/Utils.h"

@@ -36,4 +36,9 @@ int CVICALLBACK TimerCallback (int panel, int control, int event, void *callback
 **/
 int CVICALLBACK PANEL_CALLBACK (int panel, int event, void *callbackData, int eventData1, int eventData2);
 
+/**
+	Callback sur le mouvement de la souris pour déplacer la fenetre
+**/
+int CVICALLBACK OnMouseMoveEvent (int panel, int message, unsigned int* wParam, unsigned int* lParam, void* callbackData);
+
 #endif

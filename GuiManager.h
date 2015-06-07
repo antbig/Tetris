@@ -28,6 +28,8 @@
 #define PANEL_GAME_TIMER		7
 #define PANEL_SCORE				8
 
+static int gPostHndl = -1;  
+
 /**
 	Fonction pour initialiser l'interface
 **/

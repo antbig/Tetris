@@ -69,15 +69,15 @@ void Game_start(void) {
 		}
 	}
 	/*TEST*/
-	for(int x =2; x<11; x++) {
+	/*for(int x =2; x<11; x++) {
 		for(int y =22; y>18; y--) {
 			Game_MAP[y][x] = rand()%6 +1;
 		}
-	}
+	}*/
 	
 	//On initialise la piece actuel
-	//Game_Piece_Actuel.piece_type = Game_Pieces[0];
-	Game_Piece_Actuel.piece_type = 0;//test
+	Game_Piece_Actuel.piece_type = Game_Pieces[0];
+	//Game_Piece_Actuel.piece_type = 0;//test
 	Game_Piece_Actuel.x = 4;
 	Game_Piece_Actuel.y = 0;
 	Game_Piece_Actuel.orientation = 0;
@@ -86,7 +86,7 @@ void Game_start(void) {
 	Game_piece_ghost = Game_Piece_Actuel;
 	
 	//On lance la musique
-	Start_Background_Musique(); 
+	//Start_Background_Musique(); 
 	
 	//On lance le timer
 	Gui_Timer_enable();

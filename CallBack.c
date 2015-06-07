@@ -8,6 +8,8 @@
 **	 tous droits réservés							 **
 ** 													 **
 *******************************************************/
+#include <windows.h>
+#include "toolbox.h"
 #include <ansi_c.h>
 #include <userint.h>
 #include <cvirte.h>	
@@ -15,6 +17,8 @@
 #include "GuiManager.h"
 #include "GameManager.h"
 #include "Structure.h"
+
+extern int gPostHndl;
 
 /**
 	Callback sur le bouton pour quitter le jeux
@@ -80,9 +84,38 @@ int CVICALLBACK PANEL_CALLBACK (int panel, int event, void *callbackData, int ev
 			} else if(eventData1 == VAL_UP_ARROW_VKEY ) {
 
 				Game_Piece_rotation();
+			} else if(eventData1 == VAL_DOWN_ARROW_VKEY ) {
+				Game_Piece_fall();
 			}
 			
 		break;
 	}
 	return 0;
+}
+
+/**
+	Callback sur le mouvement de la souris pour déplacer la fenetre
+**/
+int CVICALLBACK OnMouseMoveEvent (int panel, int message, unsigned int* wParam, unsigned int* lParam, void* callbackData) {
+	static HWND hWnd	= 0;
+	static int	bFirst	= TRUE;
+	
+	switch(message) {
+		case EVENT_NEWHANDLE:
+			gPostHndl = *wParam;
+			hWnd = (HWND)*wParam;
+		break;
+		case WM_MOUSEMOVE:
+			if(bFirst) {
+				GetPanelAttribute(panel, ATTR_SYSTEM_WINDOW_HANDLE, (int*)&hWnd);
+				bFirst = FALSE;
+			}
+			int LeftBtnDown;
+			GetGlobalMouseState(NULL, NULL, NULL, &LeftBtnDown, NULL, NULL);
+			if(LeftBtnDown) {
+				SendMessage(hWnd, WM_NCLBUTTONDOWN, HTCAPTION, 0);
+			}
+		break;
+	}
+	return(0);
 }

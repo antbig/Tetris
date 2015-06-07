@@ -10,6 +10,7 @@
 *******************************************************/
 
 #include <windows.h>
+#include "toolbox.h"
 #include <ansi_c.h>
 #include <cvirte.h>		
 #include <userint.h>
@@ -17,6 +18,7 @@
 #include "GameManager.h"
 #include "Utils.h"
 #include "Structure.h"
+#include "CallBack.h"
 
 static int panelHandle;
 
@@ -95,6 +97,8 @@ void Gui_init(void) {
 void Gui_display(void) {
 	DisplayPanel (panelHandle);
 	RunUserInterface ();
+	
+	RemoveWinMsgCallback(panelHandle, WM_MOUSEMOVE);
 	DiscardPanel (panelHandle);
 }
 
@@ -125,7 +129,7 @@ void Gui_remove_Border(int panel, int image) {
 	HRGN hOriginalRgn = CreateRectRgn(Left, Top, PictureWidth+Left, PictureHeight+Top);
 	SetWindowRgn(hwnd, hOriginalRgn, TRUE);
 	
-	//InstallWinMsgCallback(panel, WM_MOUSEMOVE, OnMouseMove, VAL_MODE_INTERCEPT, NULL, &gPostHndl); 
+	InstallWinMsgCallback(panel, WM_MOUSEMOVE, OnMouseMoveEvent, VAL_MODE_INTERCEPT, NULL, &gPostHndl); 
 	/** TODO
 		mettre en place le callback pour bouger la fenetre
 	**/
