@@ -29,6 +29,8 @@ static PieceActuel		Game_Piece_Actuel;
 
 static char				needProcessingTimer = 0;
 
+static long				score = 0;
+
 /**
 	Pour initialiser la partie
 **/
@@ -50,6 +52,7 @@ void Game_init(void) {
 void Game_start(void) {
 	if(Game_etat == INGAME) return;
 	
+	score = 0;
 	
 	srand(clock());
 	//On initialise la liste des pieces
@@ -419,6 +422,7 @@ int Game_check_collision(void) {
 void Game_check_complete_line(void) {
 		
 	int count = 0;
+	int line = 0;
 	
 	int y = 3;
 	
@@ -428,13 +432,15 @@ void Game_check_complete_line(void) {
 			for(int x = 1; x<11; x++) {
 				if(Game_MAP[Game_Piece_Actuel.y + y][x] != 0) count++;
 			}
-			if(count == 10) {//La line est complete
+			if(count == 10) {//La ligne est complete
 				Game_remove_line(Game_Piece_Actuel.y + y);
-				/** TODO
-					score
-				**/
+				line++;
 			} else y--;
 		} else y--;
+	}
+	if(line !=0) {
+		score += 10*(line*line);
+		Gui_set_score(score);
 	}
 }
 

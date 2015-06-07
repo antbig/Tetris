@@ -21,6 +21,7 @@
 #define  PANEL_JOUER                      5       /* control type: command, callback function: CALLBACK_JOUER */
 #define  PANEL_CLOSE                      6       /* control type: picture, callback function: CALLBACK_CLOSE */
 #define  PANEL_GAME_TIMER                 7       /* control type: timer, callback function: TimerCallback */
+#define  PANEL_SCORE                      8       /* control type: numeric, callback function: (none) */
 
 
      /* Control Arrays: */

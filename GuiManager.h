@@ -26,7 +26,7 @@
 #define PANEL_JOUER				5
 #define PANEL_CLOSE				6
 #define PANEL_GAME_TIMER		7
-
+#define PANEL_SCORE				8
 
 /**
 	Fonction pour initialiser l'interface
@@ -92,5 +92,10 @@ void Gui_Timer_set_interval(double interval);
 	Pour supprimer l'ancienne piece
 **/
 void Gui_clear_old_piece(PieceActuel piece);
+
+/**
+	Pour afficher le score
+**/
+void Gui_set_score(int score);
 
 #endif

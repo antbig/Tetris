@@ -79,7 +79,12 @@ void Gui_init(void) {
 			SetTableCellAttribute(panelHandle, PANEL_TABLE_NEXT, MakePoint(width,height), ATTR_CTRL_VAL, IMG_Empty);
 		}
 	}
-
+	
+	/**
+		On rend transparent le score
+	**/
+	SetCtrlAttribute(panelHandle, PANEL_SCORE, ATTR_LABEL_BGCOLOR, VAL_TRANSPARENT);  
+	SetCtrlAttribute(panelHandle, PANEL_SCORE, ATTR_TEXT_BGCOLOR, VAL_TRANSPARENT);  
 }
 
 /**
@@ -259,4 +264,11 @@ void Gui_clear_old_piece(PieceActuel piece) {
 				SetTableCellAttribute(panelHandle, PANEL_TABLE, MakePoint(piece.x + x, piece.y + y), ATTR_CTRL_VAL, Gui_get_IMG(Game_get_MAP(piece.y + y, piece.x + x)));
 		}
 	}
+}
+
+/**
+	Pour afficher le score
+**/
+void Gui_set_score(int score) {
+	SetCtrlVal (panelHandle, PANEL_SCORE, score);
 }
