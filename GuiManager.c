@@ -20,7 +20,7 @@
 
 static int panelHandle;
 
-static int IMG_Empty, IMG_Red, IMG_Green, IMG_Blue, IMG_Purple, IMG_Yellow, IMG_Aqua, IMG_Orange;
+static int IMG_Empty, IMG_Red, IMG_Green, IMG_Blue, IMG_Purple, IMG_Yellow, IMG_Aqua, IMG_Orange, IGM_Ghost;
 
 
 /**
@@ -43,11 +43,13 @@ void Gui_init(void) {
 	GetBitmapFromFile("images/Yellow.bmp", &IMG_Yellow);
 	GetBitmapFromFile("images/Aqua.bmp", &IMG_Aqua);
 	GetBitmapFromFile("images/Orange.bmp", &IMG_Orange);
+	GetBitmapFromFile("images/Ghost.bmp", &IGM_Ghost);
 	
 	/**
-		On rend transparent le bloc Empty²
+		On rend transparent le bloc Empty et Ghost
 	**/
 	MakeColorTransparent(IMG_Empty, VAL_RED);
+	MakeColorTransparent(IGM_Ghost, VAL_RED);
 	
 	/**
 		On rend le background de la table transparent  
@@ -196,7 +198,7 @@ void Gui_update_display(void) {
 **/
 void Gui_update_falling_piece(void) {
 	
-	PieceActuel Piece_Actuel = Game_get_piece();
+	Piece_S Piece_Actuel = Game_get_piece();
 	
 	for(int x = 0; x<4; x++) {
 		for(int y = 0; y<4; y++) {
@@ -257,7 +259,7 @@ void Gui_Timer_set_interval(double interval) {
 /**
 	Pour supprimer l'ancienne piece
 **/
-void Gui_clear_old_piece(PieceActuel piece) {
+void Gui_clear_old_piece(Piece_S piece) {
 	for(int x = 0; x<4; x++) {
 		for(int y= 0; y<4; y++) {
 			if(piece.x + x <11 && piece.x +x >0 && piece.y + y <24  && piece.y + y > 0) 
@@ -271,4 +273,18 @@ void Gui_clear_old_piece(PieceActuel piece) {
 **/
 void Gui_set_score(int score) {
 	SetCtrlVal (panelHandle, PANEL_SCORE, score);
+}
+
+/**
+	Pour afficher la piece fantome
+**/
+void Gui_display_gosth(Piece_S piece) {
+	for(int x = 0; x<4; x++) {
+		for(int y= 0; y<4; y++) {
+			if(Pieces[piece.piece_type].orientation[piece.orientation][y][x] != 0) {
+				if(piece.x + x <11 && piece.x +x >0 && piece.y + y <24  && piece.y + y > 0) 
+					SetTableCellAttribute(panelHandle, PANEL_TABLE, MakePoint(piece.x + x, piece.y + y), ATTR_CTRL_VAL, IGM_Ghost);
+			}
+		}
+	}
 }

@@ -54,7 +54,7 @@ char Game_get_next_piece(void);
 /**
 	Pour obtenir le type de la piece actuel
 **/
-PieceActuel Game_get_piece(void);
+Piece_S Game_get_piece(void);
 
 /**
 	Pour passer à la piece suivante 
@@ -89,7 +89,7 @@ void Game_Piece_rotation(void);
 /**
 	Pour verifier que la piece est dans une position correcte
 **/
-int Game_check_position(PieceActuel piece);
+int Game_check_position(Piece_S piece);
 
 /**
 	Pour verifier si la piece n'est pas au plus bas de sa capacité
@@ -105,5 +105,10 @@ void Game_check_complete_line(void);
 	Pour supprimer une ligne
 **/
 void Game_remove_line(int line);
+
+/**
+	Pour actualiser la piece fantome
+**/
+void Game_update_ghost_piece(void);
 
 #endif

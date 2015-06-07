@@ -70,7 +70,7 @@ typedef struct
 	int x;
 	int y;
 	int orientation;
-}PieceActuel;
+}Piece_S;
 
 /**
 	Le liste de toutes les pieces du jeux

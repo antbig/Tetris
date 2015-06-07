@@ -17,7 +17,7 @@ Window Top = 31
 Window Left = 565
 Window Bottom = 533
 Window Right = 1355
-Maximized = False
+Maximized = True
 Maximized Children = True
 Max32 Number Of Errors = 20
 Track Include File Dependencies = True
@@ -108,20 +108,20 @@ Source Window State = "1,75,75,75,4,26,26,0,0,0,0,0,0,0,0,0,56,0,75,20,349,747,1
 [File 0007]
 Path = "/d/Programmation/c/Tetris/GameManager.c"
 File Type = "CSource"
-Disk Date = 3516471243
+Disk Date = 3516517096
 In Projects = "1,"
 Window Top = 157
 Window Left = 74
-Source Window State = "1,435,435,435,14,23,14,0,0,0,0,0,0,0,0,0,123,0,436,19,349,731,1,0,"
+Source Window State = "1,435,435,435,14,23,14,0,0,86,0,0,0,0,0,25,370,0,392,19,349,731,1,0,"
 
 [File 0008]
 Path = "/d/Programmation/c/Tetris/GuiManager.c"
 File Type = "CSource"
-Disk Date = 3516471046
+Disk Date = 3516517079
 In Projects = "1,"
 Window Top = 188
 Window Left = 38
-Source Window State = "1,257,257,257,150,162,162,0,0,0,0,0,0,0,0,0,237,0,257,17,349,731,1,0,"
+Source Window State = "1,284,284,284,116,125,125,0,0,86,0,0,0,0,0,25,0,0,22,98,349,731,1,0,"
 
 [File 0009]
 Path = "/d/Programmation/c/Tetris/SoundManager.c"
@@ -153,7 +153,7 @@ Source Window State = "1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,20,15,349,683,1,0,"
 [File 0012]
 Path = "/d/Programmation/c/Tetris/GameManager.h"
 File Type = "Include"
-Disk Date = 3516467218
+Disk Date = 3516516634
 In Projects = "1,"
 Window Top = 33
 Window Left = 10
@@ -162,7 +162,7 @@ Source Window State = "1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,17,22,349,683,1,0,"
 [File 0013]
 Path = "/d/Programmation/c/Tetris/GuiManager.h"
 File Type = "Include"
-Disk Date = 3516471005
+Disk Date = 3516516645
 In Projects = "1,"
 Window Top = 188
 Window Left = 90
@@ -180,7 +180,7 @@ Source Window State = "1,21,21,21,0,28,28,0,3,0,0,20,0,20,0,0,0,0,21,0,349,731,1
 [File 0015]
 Path = "/d/Programmation/c/Tetris/Structure.h"
 File Type = "Include"
-Disk Date = 3516456415
+Disk Date = 3516516657
 In Projects = "1,"
 Window Top = 405
 Window Left = 202

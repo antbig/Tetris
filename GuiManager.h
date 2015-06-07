@@ -91,11 +91,16 @@ void Gui_Timer_set_interval(double interval);
 /**
 	Pour supprimer l'ancienne piece
 **/
-void Gui_clear_old_piece(PieceActuel piece);
+void Gui_clear_old_piece(Piece_S piece);
 
 /**
 	Pour afficher le score
 **/
 void Gui_set_score(int score);
+
+/**
+	Pour afficher la piece fantome
+**/
+void Gui_display_gosth(Piece_S piece);
 
 #endif

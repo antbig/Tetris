@@ -25,7 +25,9 @@ static unsigned char	Game_MAP[24][12];
 
 static unsigned char	Game_etat = WAITING;
 
-static PieceActuel		Game_Piece_Actuel;
+static Piece_S			Game_Piece_Actuel;
+
+static Piece_S			Game_piece_ghost;
 
 static char				needProcessingTimer = 0;
 
@@ -37,10 +39,7 @@ static long				score = 0;
 void Game_init(void) {
 	//On prepare l'interface
 	Gui_init();
-	
-	//On lance la musique
-	//Start_Background_Musique(); 
-	
+
 	//On definit l'interval du timer
 	Gui_Timer_set_interval(0.4);
 
@@ -69,6 +68,7 @@ void Game_start(void) {
 			Game_MAP[y][x] = 0;
 		}
 	}
+	/*TEST*/
 	for(int x =2; x<11; x++) {
 		for(int y =22; y>18; y--) {
 			Game_MAP[y][x] = rand()%6 +1;
@@ -77,10 +77,17 @@ void Game_start(void) {
 	
 	//On initialise la piece actuel
 	//Game_Piece_Actuel.piece_type = Game_Pieces[0];
-	Game_Piece_Actuel.piece_type = 0;//pour le test
+	Game_Piece_Actuel.piece_type = 0;//test
 	Game_Piece_Actuel.x = 4;
 	Game_Piece_Actuel.y = 0;
 	Game_Piece_Actuel.orientation = 0;
+	
+	//On initialise la piece fantome
+	Game_piece_ghost = Game_Piece_Actuel;
+	Game_piece_ghost.y = 19;
+	
+	//On lance la musique
+	Start_Background_Musique(); 
 	
 	//On lance le timer
 	Gui_Timer_enable();
@@ -136,7 +143,7 @@ char Game_get_next_piece(void) {
 /**
 	Pour obtenir la piece actuel
 **/
-PieceActuel Game_get_piece(void) {
+Piece_S Game_get_piece(void) {
 	return Game_Piece_Actuel;
 }
 
@@ -156,9 +163,12 @@ void Game_change_piece(void) {
 			}
 		}
 	}
-	Game_check_complete_line();
+	
 	//On actualise l'affichage static
 	Gui_update_display();
+	
+	//On ragarde si il y a des lignes
+	Game_check_complete_line();
 	
 	//On décale la liste des pieces
 	for(int i = 0; i<8;i++) {
@@ -237,6 +247,9 @@ void Game_Piece_fall(void) {
 	//1 -> on affiche la piece
 	Gui_clear_old_piece(Game_Piece_Actuel);
 	Game_Piece_Actuel.y += 1;
+	
+	Game_update_ghost_piece();
+	
 	//Gui_update_display();
 	Gui_update_falling_piece();
 	//2 -> on regarde si il y a pas de colision
@@ -274,6 +287,9 @@ void Game_Piece_move_right(void) {
 	Gui_clear_old_piece(Game_Piece_Actuel);
 	Game_Piece_Actuel.x += 1;
 	//Gui_update_display();
+	
+	Game_update_ghost_piece();
+	
 	Gui_update_falling_piece();
 	if(Game_check_collision()) {
 		Game_change_piece();
@@ -310,6 +326,9 @@ void Game_Piece_move_left(void) {
 	Gui_clear_old_piece(Game_Piece_Actuel);
 	Game_Piece_Actuel.x -= 1;
 	//Gui_update_display();
+	
+	Game_update_ghost_piece();
+	
 	Gui_update_falling_piece();
 	if(Game_check_collision()) {
 		Game_change_piece();
@@ -328,7 +347,7 @@ void Game_Piece_rotation(void) {
 	int newOrientation = Game_Piece_Actuel.orientation + 1;
 	if(newOrientation >3) newOrientation = 0;
 	
-	PieceActuel testPosition = Game_Piece_Actuel;
+	Piece_S testPosition = Game_Piece_Actuel;
 	testPosition.orientation = newOrientation;
 	
 	if(!Game_check_position(testPosition)) {
@@ -367,6 +386,9 @@ void Game_Piece_rotation(void) {
 	Gui_clear_old_piece(Game_Piece_Actuel);
 	Game_Piece_Actuel = testPosition;
 	//Gui_update_display();
+	
+	Game_update_ghost_piece();
+	
 	Gui_update_falling_piece();
 	if(Game_check_collision()) {
 		Game_change_piece();
@@ -376,12 +398,12 @@ void Game_Piece_rotation(void) {
 /**
 	Pour verifier que la piece est dans une position correcte
 **/
-int Game_check_position(PieceActuel piece) {
+int Game_check_position(Piece_S piece) {
 	
 	for(int x = 0; x<4; x++) {
 		for(int y = 0; y<4; y++) {
 			if(Pieces[piece.piece_type].orientation[piece.orientation][y][x] != 0) { //ce n'est pas du vide
-				if(piece.x + x <11 && piece.x + x >0 && piece.y + y <24  && piece.y + y > 0) { //Le carre est dans le terrain d'affichage
+				if(piece.x + x <11 && piece.x + x >0 && piece.y + y <23  && piece.y + y > 0) { //Le carre est dans le terrain d'affichage
 					if(Game_MAP[piece.y + y][piece.x + x] != 0) {
 						return 0;
 					}
@@ -400,7 +422,7 @@ int Game_check_collision(void) {
 	for(int x = 0; x<4; x++) {
 		for(int y = 3; y>=0; y--) {
 			if(Pieces[Game_Piece_Actuel.piece_type].orientation[Game_Piece_Actuel.orientation][y][x] != 0) { //ce n'est pas du vide
-				if(Game_Piece_Actuel.x + x <12 && Game_Piece_Actuel.x +x >0 && Game_Piece_Actuel.y + y <24  && Game_Piece_Actuel.y + y > 0) { //La piece est dans la terrain d'affichage
+				if(Game_Piece_Actuel.x + x <11 && Game_Piece_Actuel.x +x >0 && Game_Piece_Actuel.y + y <23  && Game_Piece_Actuel.y + y > 0) { //La piece est dans la terrain d'affichage
 					if(Game_Piece_Actuel.y + y +1 >22) { //La piece est en bas
 						return 1;
 					}
@@ -457,4 +479,19 @@ void Game_remove_line(int line) {
 		Game_MAP[0][x] = 0;
 	}
 	Gui_update_display();
+}
+
+/**
+	Pour actualiser la piece fantome
+**/
+void Game_update_ghost_piece(void) {
+	Gui_clear_old_piece(Game_piece_ghost);
+	Game_piece_ghost = Game_Piece_Actuel;
+	Game_piece_ghost.y = 20;
+	while(!Game_check_position(Game_piece_ghost)) {
+		Game_piece_ghost.y -=1;
+	}
+	//Game_piece_ghost.y -=1;
+	
+	Gui_display_gosth(Game_piece_ghost);
 }
