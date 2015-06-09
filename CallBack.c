@@ -5,7 +5,7 @@
 **   Par Leonard Antoine <antoine.leonard@u-psud.fr> **
 **    et David   Pierre  <pierre.david1@u-psud.fr>   **
 **													 **
-**	 tous droits réservés							 **
+**	 tous droits reserves							 **
 ** 													 **
 *******************************************************/
 #include <windows.h>
@@ -22,7 +22,7 @@
 extern int gPostHndl;
 
 /**
-	Callback sur le bouton pour quitter le jeux
+	Callback sur le bouton pour quitter le jeu
 **/
 int CVICALLBACK CALLBACK_CLOSE (int panel, int control, int event, void *callbackData, int eventData1, int eventData2) {
 	if( event == EVENT_LEFT_CLICK_UP)
@@ -52,7 +52,7 @@ int CVICALLBACK CALLBACK_JOUER (int panel, int control, int event, void *callbac
 }
 
 /**
-	Callback sur le timer du jeux
+	Callback sur le timer du jeu
 **/
 int CVICALLBACK TimerCallback (int panel, int control, int event, void *callbackData, int eventData1, int eventData2)
 {
@@ -95,7 +95,7 @@ int CVICALLBACK PANEL_CALLBACK (int panel, int event, void *callbackData, int ev
 }
 
 /**
-	Callback sur le mouvement de la souris pour déplacer la fenetre
+	Callback sur le mouvement de la souris pour deplacer la fenetre
 **/
 int CVICALLBACK OnMouseMoveEvent (int panel, int message, unsigned int* wParam, unsigned int* lParam, void* callbackData) {
 	static HWND hWnd	= 0;

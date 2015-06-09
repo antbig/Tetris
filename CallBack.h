@@ -10,14 +10,14 @@
 *******************************************************/
 
 /**
-	Fichier avec la liste des callback pour le jeux
+	Fichier avec la liste des callback pour le jeu
 **/
 #ifndef TETRIS_CALLBACK
 #define TETRIS_CALLBACK
 
 #include <userint.h>
 /**
-	Callback sur le bouton pour quitter le jeux
+	Callback sur le bouton pour quitter le jeu
 **/
 int CVICALLBACK CALLBACK_CLOSE (int panel, int control, int event, void *callbackData, int eventData1, int eventData2);
 
@@ -27,7 +27,7 @@ int CVICALLBACK CALLBACK_CLOSE (int panel, int control, int event, void *callbac
 int CVICALLBACK CALLBACK_JOUER (int panel, int control, int event, void *callbackData, int eventData1, int eventData2);
 
 /**
-	Callback sur le timer du jeux
+	Callback sur le timer du jeu
 **/
 int CVICALLBACK TimerCallback (int panel, int control, int event, void *callbackData, int eventData1, int eventData2);
 
@@ -37,7 +37,7 @@ int CVICALLBACK TimerCallback (int panel, int control, int event, void *callback
 int CVICALLBACK PANEL_CALLBACK (int panel, int event, void *callbackData, int eventData1, int eventData2);
 
 /**
-	Callback sur le mouvement de la souris pour déplacer la fenetre
+	Callback sur le mouvement de la souris pour deplacer la fenetre
 **/
 int CVICALLBACK OnMouseMoveEvent (int panel, int message, unsigned int* wParam, unsigned int* lParam, void* callbackData);
 
@@ -47,3 +47,4 @@ int CVICALLBACK OnMouseMoveEvent (int panel, int message, unsigned int* wParam, 
 int CVICALLBACK CALLBACK_SAVEDATA (int panel, int control, int event, void *callbackData, int eventData1, int eventData2);
 
 #endif
+
