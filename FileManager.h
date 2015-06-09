@@ -17,5 +17,10 @@
 **/
 void File_save_game(void);
 
+/**
+	Pour restorer la partie
+**/
+void File_restor_game(void);
+
 
 #endif

@@ -42,7 +42,7 @@ int CVICALLBACK CALLBACK_JOUER (int panel, int control, int event, void *callbac
 		} else if(Game_get_etat() == INGAME) {
 			Game_stop();
 			SetCtrlAttribute (panel, control, ATTR_LABEL_TEXT , "JOUER");
-			
+			File_save_game();
 		} else {
 			
 		}
@@ -126,5 +126,8 @@ int CVICALLBACK OnMouseMoveEvent (int panel, int message, unsigned int* wParam, 
 	Callback sur le save
 **/
 int CVICALLBACK CALLBACK_SAVEDATA (int panel, int control, int event, void *callbackData, int eventData1, int eventData2) {
-	File_save_game();
+	if(event = 34) {
+		//File_save_game();
+	}
+	return 0;
 }

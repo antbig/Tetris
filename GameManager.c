@@ -16,6 +16,7 @@
 #include "SoundManager.h"
 #include "GuiManager.h"
 #include "Structure.h"
+#include "FileManager.h"
 
 //La liste des pieces à venir
 //0=> Piece actuel
@@ -76,6 +77,8 @@ void Game_start(void) {
 		}
 	}*/
 	
+	File_restor_game();
+	
 	//On initialise la piece actuel
 	Game_Piece_Actuel.piece_type = Game_Pieces[0];
 	//Game_Piece_Actuel.piece_type = 0;//test
@@ -83,11 +86,13 @@ void Game_start(void) {
 	Game_Piece_Actuel.y = 0;
 	Game_Piece_Actuel.orientation = 0;
 	
+	
+	
 	//On initialise la piece fantome
 	Game_piece_ghost = Game_Piece_Actuel;
 	
 	//On lance la musique
-	Start_Background_Musique(); 
+	//Start_Background_Musique(); 
 	
 	//On lance le timer
 	Gui_Timer_enable();
@@ -131,14 +136,28 @@ int Game_get_etat(void) {
 	Pour obtenir la disposition des blocs
 **/
 unsigned char Game_get_MAP(int x, int y) {
-	return Game_MAP[x][y];
+	return Game_MAP[y][x];
 }
 
 /**
-	Pour obtenir le type de la piece suivante
+	pour definir la piece
 **/
-char Game_get_next_piece(void) {
-	return Game_Pieces[1];
+void Game_set_MAP(int x, int y, unsigned char val) {
+	Game_MAP[y][x] = val;
+}
+
+/**
+	Pour obtenir le type de la piece id
+**/
+char Game_get_next_piece(int id) {
+	return Game_Pieces[id];
+}
+
+/**
+	Pour definir le type de la piece id
+**/
+void Game_set_next_piece(int id, char val) {
+	Game_Pieces[id] = val;
 }
 
 /**
@@ -146,6 +165,21 @@ char Game_get_next_piece(void) {
 **/
 Piece_S Game_get_piece(void) {
 	return Game_Piece_Actuel;
+}
+
+/**
+	Pour avoir le score
+**/
+long Game_get_score(void) {
+	return score;
+}
+
+/**
+	Pour definir le score
+**/
+void Game_set_score(long s) {
+	score = s;
+	Gui_set_score(score);
 }
 
 /**

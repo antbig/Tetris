@@ -47,14 +47,34 @@ int Game_get_etat(void);
 unsigned char Game_get_MAP(int x, int y);
 
 /**
-	Pour obtenir le type de la piece suivante
+	pour definir la piece
 **/
-char Game_get_next_piece(void);
+void Game_set_MAP(int x, int y, unsigned char val);
+
+/**
+	Pour obtenir le type de la piece id
+**/
+char Game_get_next_piece(int id);
+
+/**
+	Pour definir le type de la piece id
+**/
+void Game_set_next_piece(int id, char val);
 
 /**
 	Pour obtenir le type de la piece actuel
 **/
 Piece_S Game_get_piece(void);
+
+/**
+	Pour avoir le score
+**/
+long Game_get_score(void);
+
+/**
+	Pour definir le score
+**/
+void Game_set_score(long s);
 
 /**
 	Pour passer à la piece suivante 

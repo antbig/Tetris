@@ -60,3 +60,14 @@ void MakeColorTransparent(int bitmap, int color)
 	 free(mask);
 	 free(bits);
 }
+
+/**
+	Pour convertir un char en int
+**/
+int Char_to_Int(char d) {
+	char str[2];
+
+	str[0] = d;
+	str[1] = '\0';
+	return (int) strtol(str, NULL, 10);
+}

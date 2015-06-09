@@ -20,6 +20,9 @@
 void MaskBitsOfColor (unsigned char *bits, int rowBytes, int color, int width, int height, unsigned char *mask);
 void MakeColorTransparent(int bitmap, int color);
 
-
+/**
+	Pour convertir un char en int
+**/
+int Char_to_Int(char d);
 
 #endif

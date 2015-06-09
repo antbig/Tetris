@@ -192,7 +192,7 @@ void Gui_update_display(void) {
 	{
 		for (int height = 1; height <= 22; height++)
 		{
-			SetTableCellAttribute(panelHandle, PANEL_TABLE, MakePoint(width,height), ATTR_CTRL_VAL, Gui_get_IMG(Game_get_MAP(height,width)));
+			SetTableCellAttribute(panelHandle, PANEL_TABLE, MakePoint(width,height), ATTR_CTRL_VAL, Gui_get_IMG(Game_get_MAP(width, height)));
 		}
 	}
 }
@@ -219,7 +219,7 @@ void Gui_update_falling_piece(void) {
 	Pour afficher la piece suivante
 **/
 void Gui_update_next_piece(void)  {
-	char piece = Game_get_next_piece();
+	char piece = Game_get_next_piece(1);
 	for(int x = 1; x<=4; x++) {
 		for(int y= 1; y<=4; y++) {
 			if(Pieces[piece].orientation[0][y-1][x-1])
@@ -267,7 +267,7 @@ void Gui_clear_old_piece(Piece_S piece) {
 	for(int x = 0; x<4; x++) {
 		for(int y= 0; y<4; y++) {
 			if(piece.x + x <11 && piece.x +x >0 && piece.y + y <24  && piece.y + y > 0) 
-				SetTableCellAttribute(panelHandle, PANEL_TABLE, MakePoint(piece.x + x, piece.y + y), ATTR_CTRL_VAL, Gui_get_IMG(Game_get_MAP(piece.y + y, piece.x + x)));
+				SetTableCellAttribute(panelHandle, PANEL_TABLE, MakePoint(piece.x + x, piece.y + y), ATTR_CTRL_VAL, Gui_get_IMG(Game_get_MAP(piece.x + x, piece.y + y)));
 		}
 	}
 }
