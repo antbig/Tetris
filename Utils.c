@@ -5,11 +5,11 @@
 **   Par Leonard Antoine <antoine.leonard@u-psud.fr> **
 **    et David   Pierre  <pierre.david1@u-psud.fr>   **
 **													 **
-**	 tous droits réservés							 **
+**	 tous droits reserves							 **
 ** 													 **
 *******************************************************/
 /**
-	Fichier avec les fonctions utilies
+	Fichier avec les fonctions utiles
 **/
 #include <userint.h>
 #include <ansi_c.h>
