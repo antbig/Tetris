@@ -5,7 +5,7 @@
 **   Par Leonard Antoine <antoine.leonard@u-psud.fr> **
 **    et David   Pierre  <pierre.david1@u-psud.fr>   **
 **													 **
-**	 tous droits réservés							 **
+**	 tous droits reserves							 **
 ** 													 **
 *******************************************************/
 
@@ -63,7 +63,7 @@ void Gui_init(void) {
 	SetCtrlAttribute(panelHandle, PANEL_TABLE_NEXT, ATTR_TABLE_BGCOLOR, VAL_TRANSPARENT);  
 	
 	/**
-		On affiche la grille vide du jeux
+		On affiche la grille vide du jeu
 	**/
 	InsertTableRows (panelHandle, PANEL_TABLE, -1, 22, VAL_CELL_PICTURE);
 	InsertTableColumns (panelHandle, PANEL_TABLE, -1, 10, VAL_CELL_PICTURE);
@@ -130,9 +130,6 @@ void Gui_remove_Border(int panel, int image) {
 	SetWindowRgn(hwnd, hOriginalRgn, TRUE);
 	
 	InstallWinMsgCallback(panel, WM_MOUSEMOVE, OnMouseMoveEvent, VAL_MODE_INTERCEPT, NULL, &gPostHndl); 
-	/** TODO
-		mettre en place le callback pour bouger la fenetre
-	**/
 	if(hOriginalRgn) DeleteObject(hOriginalRgn);
 	
 
@@ -147,7 +144,7 @@ int Gui_get_Interface(void) {
 
 
 /**
-	Pour obtenir l'image à partir de la couleur
+	Pour obtenir l'image a  partir de la couleur
 **/
 int Gui_get_IMG(int color) {
 	
@@ -245,7 +242,7 @@ void Gui_Timer_disable(void) {
 }
 
 /**
-	Pour savoir si le timer est activé
+	Pour savoir si le timer est active
 **/
 int Gui_Timer_isEnable(void) {
 	int isEnable;
@@ -254,7 +251,7 @@ int Gui_Timer_isEnable(void) {
 }
 
 /**
-	Pour definir l'interval du timer
+	Pour definir l'intervalle du timer
 **/
 void Gui_Timer_set_interval(double interval) {
 	SetCtrlAttribute (panelHandle, PANEL_GAME_TIMER, ATTR_INTERVAL, interval);

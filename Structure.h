@@ -5,17 +5,17 @@
 **   Par Leonard Antoine <antoine.leonard@u-psud.fr> **
 **    et David   Pierre  <pierre.david1@u-psud.fr>   **
 **													 **
-**	 tous droits réservés							 **
+**	 tous droits reserves							 **
 ** 													 **
 *******************************************************/
 
 /**
-	Ce fichier contient les différentes structures utilisées dans le programme
+	Ce fichier contient les differentes structures utilisees dans le programme
 **/
 #ifndef TETRIS_STRUCTURE
 #define TETRIS_STRUCTURE
 /**
-	Les couleur possible
+	Les couleurs possibles
 **/
 #define EMPTY	0
 #define RED		1
@@ -37,7 +37,7 @@
 #define PROCESSING_T	5 //traitement en cours, on bloque les mouvements
 
 
-/*** Forme standare d'une piece
+/*** Forme standard d'une piece
 {	{0 , 0, 0, 0},
 	{0 , 0, 0, 0},
 	{0 , 0, 0, 0},
@@ -52,8 +52,8 @@ typedef unsigned char COMPNENT[4][4];
 /**
 	Une piece 
 	Composée de 
-		- 4 COMPNENT pour chaque orientation
-		- La couleur des block
+		- 4 COMPONENT pour chaque orientation
+		- La couleur des blocs
 **/
 typedef struct
 {
@@ -62,7 +62,7 @@ typedef struct
 }Piece;
 
 /**
-	La piece actuel
+	La piece actuelle
 **/
 typedef struct
 {
@@ -73,7 +73,7 @@ typedef struct
 }Piece_S;
 
 /**
-	Le liste de toutes les pieces du jeux
+	Le liste de toutes les pieces du jeu
 **/
 static Piece Pieces[7] = {
 	

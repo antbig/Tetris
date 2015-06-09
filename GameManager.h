@@ -5,7 +5,7 @@
 **   Par Leonard Antoine <antoine.leonard@u-psud.fr> **
 **    et David   Pierre  <pierre.david1@u-psud.fr>   **
 **													 **
-**	 tous droits réservés							 **
+**	 tous droits reserves							 **
 ** 													 **
 *******************************************************/
 
@@ -32,7 +32,7 @@ void Game_start(void);
 void Game_stop(void);
 
 /**
-	Pour regarder si la partie est perdu
+	Pour regarder si la partie est perdue
 **/
 void Game_set_lose(void);
 
@@ -62,7 +62,7 @@ char Game_get_next_piece(int id);
 void Game_set_next_piece(int id, char val);
 
 /**
-	Pour obtenir le type de la piece actuel
+	Pour obtenir le type de la piece actuelle
 **/
 Piece_S Game_get_piece(void);
 
@@ -82,7 +82,7 @@ void Game_set_score(long s);
 void Game_change_piece(void);
 
 /**
-	Pour generer le groupe de piece suivant
+	Pour generer le groupe de pieces suivant
 **/
 void Game_generate_piece(void);
 
@@ -92,12 +92,12 @@ void Game_generate_piece(void);
 void Game_Piece_fall(void);
 
 /**
-	Pour décaler une piece vers la droite
+	Pour decaler une piece vers la droite
 **/
 void Game_Piece_move_right(void);
 
 /**
-	Pour décaler une piece vers la droite
+	Pour decaler une piece vers la droite
 **/
 void Game_Piece_move_left(void);
 
@@ -112,7 +112,7 @@ void Game_Piece_rotation(void);
 int Game_check_position(Piece_S piece);
 
 /**
-	Pour verifier si la piece n'est pas au plus bas de sa capacité
+	Pour verifier si la piece n'est pas au plus bas de sa capacite
 **/
 int Game_check_collision(void);
 

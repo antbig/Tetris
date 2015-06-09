@@ -5,7 +5,7 @@
 **   Par Leonard Antoine <antoine.leonard@u-psud.fr> **
 **    et David   Pierre  <pierre.david1@u-psud.fr>   **
 **													 **
-**	 tous droits réservés							 **
+**	 tous droits rÃ©servÃ©s							 **
 ** 													 **
 *******************************************************/
 
@@ -52,7 +52,7 @@ void Gui_remove_Border(int panel, int image);
 int Gui_get_Interface(void);
 
 /**
-	Pour obtenir l'image à partir de la couleur
+	Pour obtenir l'image a  partir de la couleur
 **/
 int Gui_get_IMG(int color);
 
@@ -82,12 +82,12 @@ void Gui_Timer_enable(void);
 void Gui_Timer_disable(void);
 
 /**
-	Pour savoir si le timer est activé
+	Pour savoir si le timer est active
 **/
 int Gui_Timer_isEnable(void);
 
 /**
-	Pour definir l'interval du timer
+	Pour definir l'intervalle du timer
 **/
 void Gui_Timer_set_interval(double interval);
 
