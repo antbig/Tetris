@@ -9,6 +9,7 @@
 ** 													 **
 *******************************************************/
 
+#include <userint.h>
 #include <utility.h>
 #include <ansi_c.h>
 #include "GameManager.h"
@@ -86,7 +87,7 @@ void Game_start(void) {
 	Game_piece_ghost = Game_Piece_Actuel;
 	
 	//On lance la musique
-	//Start_Background_Musique(); 
+	Start_Background_Musique(); 
 	
 	//On lance le timer
 	Gui_Timer_enable();
@@ -111,11 +112,12 @@ void Game_stop(void) {
 	Pour regarder si la partie est perdu
 **/
 void Game_set_lose(void) {
-	Game_etat = LOSE;
+	Game_etat = WAITING;
 	
 	Gui_update_display();
 	Gui_update_falling_piece();
-	printf("Fin de la partie");
+	//printf("Fin de la partie");
+	MessagePopup ("Dommage", "Vous avez perdu");
 }
 
 /**

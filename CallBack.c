@@ -17,6 +17,7 @@
 #include "GuiManager.h"
 #include "GameManager.h"
 #include "Structure.h"
+#include "FileManager.h"
 
 extern int gPostHndl;
 
@@ -118,4 +119,12 @@ int CVICALLBACK OnMouseMoveEvent (int panel, int message, unsigned int* wParam, 
 		break;
 	}
 	return(0);
+}
+
+
+/**
+	Callback sur le save
+**/
+int CVICALLBACK CALLBACK_SAVEDATA (int panel, int control, int event, void *callbackData, int eventData1, int eventData2) {
+	File_save_game();
 }

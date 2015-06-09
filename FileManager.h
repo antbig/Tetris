@@ -5,26 +5,17 @@
 **   Par Leonard Antoine <antoine.leonard@u-psud.fr> **
 **    et David   Pierre  <pierre.david1@u-psud.fr>   **
 **													 **
-**	 tous droits réservés							 **
+**	 tous droits rÃ©servÃ©s							 **
 ** 													 **
 *******************************************************/
 
-
-#include <ansi_c.h>
-#include <utility.h>
-#include "soundManager.h"
-#include "Structure.h"
-#include "GuiManager.h" 
-#include "GameManager.h" 
-
+#ifndef TETRIS_FILEMANAGER
+#define TETRIS_FILEMANAGER
 
 /**
-  Fonction principale du programme
+	Pour sauvegarder la partie dans un fichier
 **/
-void main(void) {
-	
-	Game_init();//On initialise le jeu
-	
-	Gui_display();
+void File_save_game(void);
 
-}
+
+#endif
