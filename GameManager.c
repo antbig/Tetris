@@ -5,7 +5,7 @@
 **   Par Leonard Antoine <antoine.leonard@u-psud.fr> **
 **    et David   Pierre  <pierre.david1@u-psud.fr>   **
 **													 **
-**	 tous droits réservés							 **
+**	 tous droits reserves							 **
 ** 													 **
 *******************************************************/
 
@@ -16,8 +16,8 @@
 #include "GuiManager.h"
 #include "Structure.h"
 
-//La liste des pieces à venir
-//0=> Piece actuel
+//La liste des pieces a venir
+//0=> Piece actuelle
 //1=> Piece Suivante
 static char				Game_Pieces[9] = {-1,-1,-1,-1,-1,-1,-1,-1};
 
@@ -40,8 +40,8 @@ void Game_init(void) {
 	//On prepare l'interface
 	Gui_init();
 
-	//On definit l'interval du timer
-	Gui_Timer_set_interval(0.4);
+	//On definit l'intervalle du timer
+	Gui_Timer_set_interval(0.6);
 
 }
 
@@ -75,7 +75,7 @@ void Game_start(void) {
 		}
 	}*/
 	
-	//On initialise la piece actuel
+	//On initialise la piece actuelle
 	Game_Piece_Actuel.piece_type = Game_Pieces[0];
 	//Game_Piece_Actuel.piece_type = 0;//test
 	Game_Piece_Actuel.x = 4;
@@ -86,7 +86,7 @@ void Game_start(void) {
 	Game_piece_ghost = Game_Piece_Actuel;
 	
 	//On lance la musique
-	//Start_Background_Musique(); 
+	Start_Background_Musique(); 
 	
 	//On lance le timer
 	Gui_Timer_enable();
@@ -108,7 +108,7 @@ void Game_stop(void) {
 }
 
 /**
-	Pour regarder si la partie est perdu
+	Pour indiquer que la partie est perdue
 **/
 void Game_set_lose(void) {
 	Game_etat = LOSE;
@@ -140,19 +140,19 @@ char Game_get_next_piece(void) {
 }
 
 /**
-	Pour obtenir la piece actuel
+	Pour obtenir la piece actuelle
 **/
 Piece_S Game_get_piece(void) {
 	return Game_Piece_Actuel;
 }
 
 /**
-	Pour passer à la piece suivante 
+	Pour passer a la piece suivante 
 **/
 void Game_change_piece(void) {
 
 	int color = Pieces[Game_Piece_Actuel.piece_type].couleur;
-	//On fige la piece actuel sur le terrain
+	//On fige la piece actuelle sur le terrain
 	for(int x = 0; x<4; x++) {
 		for(int y = 0; y<4; y++) {
 			if(Pieces[Game_Piece_Actuel.piece_type].orientation[Game_Piece_Actuel.orientation][y][x] != 0) { //ce n'est pas du vide
@@ -163,18 +163,18 @@ void Game_change_piece(void) {
 		}
 	}
 	
-	//On actualise l'affichage static
+	//On actualise l'affichage statique
 	Gui_update_display();
 	
-	//On ragarde si il y a des lignes
+	//On ragarde s'il y a des lignes
 	Game_check_complete_line();
 	
-	//On décale la liste des pieces
+	//On decale la liste des pieces
 	for(int i = 0; i<8;i++) {
 		Game_Pieces[i] = Game_Pieces[i+1];
 	}
 	Game_Pieces[8] = -1;
-	//On regarde si il y a besoin de regenerer la liste des pieces à venir
+	//On regarde s'il y a besoin de regenerer la liste des pieces a  venir
 	if(Game_Pieces[2] == -1) {
 		Game_generate_piece();
 	}
@@ -197,7 +197,7 @@ void Game_change_piece(void) {
 		}
 	}
 	
-	//On regarde si la piece peux descendre d'un
+	//On regarde si la piece peut descendre d'un
 	if(Game_check_collision()) {
 		Game_set_lose();
 		return;
@@ -209,7 +209,7 @@ void Game_change_piece(void) {
 }
 
 /**
-	Pour generer le groupe de piece suivant
+	Pour generer le groupe de pieces suivant
 **/
 void Game_generate_piece(void) {
 	if(Game_Pieces[2] != -1) return; //On evite les problemes si la liste n'est pas vide
@@ -261,7 +261,7 @@ void Game_Piece_fall(void) {
 }
 
 /**
-	Pour décaler une piece vers la droite
+	Pour decaler une piece vers la droite
 **/
 void Game_Piece_move_right(void) {
 	Game_etat = PROCESSING;
@@ -300,7 +300,7 @@ void Game_Piece_move_right(void) {
 }
 
 /**
-	Pour décaler une piece vers la gauche
+	Pour decaler une piece vers la gauche
 **/
 void Game_Piece_move_left(void) {
 	Game_etat = PROCESSING;
@@ -414,14 +414,14 @@ int Game_check_position(Piece_S piece) {
 }
 
 /**
-	Pour verifier si la piece n'est pas au plus bas de sa capacité
+	Pour verifier si la piece n'est pas au plus bas de sa capacite
 **/
 int Game_check_collision(void) {
 	
 	for(int x = 0; x<4; x++) {
 		for(int y = 3; y>=0; y--) {
 			if(Pieces[Game_Piece_Actuel.piece_type].orientation[Game_Piece_Actuel.orientation][y][x] != 0) { //ce n'est pas du vide
-				if(Game_Piece_Actuel.x + x <11 && Game_Piece_Actuel.x +x >0 && Game_Piece_Actuel.y + y <23  && Game_Piece_Actuel.y + y > 0) { //La piece est dans la terrain d'affichage
+				if(Game_Piece_Actuel.x + x <11 && Game_Piece_Actuel.x +x >0 && Game_Piece_Actuel.y + y <23  && Game_Piece_Actuel.y + y > 0) { //La piece est dans le terrain d'affichage
 					if(Game_Piece_Actuel.y + y +1 >22) { //La piece est en bas
 						return 1;
 					}
@@ -438,7 +438,7 @@ int Game_check_collision(void) {
 }
 
 /**
-	Pour detetcter les lignes completes
+	Pour detecter les lignes completes
 **/
 void Game_check_complete_line(void) {
 		
