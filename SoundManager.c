@@ -5,7 +5,7 @@
 **   Par Leonard Antoine <antoine.leonard@u-psud.fr> **
 **    et David   Pierre  <pierre.david1@u-psud.fr>   **
 **													 **
-**	 tous droits réservés							 **
+**	 tous droits reserves							 **
 ** 													 **
 *******************************************************/
 
@@ -22,20 +22,20 @@ short Start_Background_Musique(void) {
 	UINT flags = 0;
 	
 	flags |= SND_ASYNC | SND_LOOP;  //Lecture en boucle
-	flags |= SND_NOSTOP; //On ne stop pas la musique en cours
+	flags |= SND_NOSTOP; //On ne stoppe pas la musique en cours
 	
 	return sndPlaySound("musique/background.wav", flags);  
 	
 }
 
 /**
-	Fonction pour joueur le son lors du déplacement d'une piece
+	Fonction pour joueur le son lors du deplacement d'une piece
 **/
 short Play_Move_Sound(void) {
 	UINT flags = 0;
 	
 	flags |= SND_ASYNC;  //Lecture en boucle
-	flags |= SND_NOSTOP; //On ne stop pas la musique en cours
+	flags |= SND_NOSTOP; //On ne stoppe pas la musique en cours
 	
 	return sndPlaySound("musique/moveEvent.wav", flags);  
 }
