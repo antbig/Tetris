@@ -115,7 +115,16 @@ void Game_set_lose(void) {
 	
 	Gui_update_display();
 	Gui_update_falling_piece();
-	printf("Fin de la partie");
+	//printf("Fin de la partie");
+	
+	//On remplit l'écran de toutes les couleurs
+	for(int x =0; x<12; x++) {
+		for(int y =0; y<24; y++) {
+			Game_MAP[y][x] = (rand() % 7 + 1);
+		}
+		
+	}
+	Gui_update_display();
 }
 
 /**
