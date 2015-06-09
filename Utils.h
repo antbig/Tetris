@@ -25,4 +25,9 @@ void MakeColorTransparent(int bitmap, int color);
 **/
 int Char_to_Int(char d);
 
+/**
+	Pour savoir si un fichier existe
+**/
+int File_exist(char *filename);
+
 #endif

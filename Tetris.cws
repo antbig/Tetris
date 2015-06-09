@@ -107,7 +107,7 @@ Source Window State = "1,16,16,16,10,20,20,0,0,88,0,0,0,0,0,25,56,0,75,24,349,74
 [File 0007]
 Path = "/d/Programmation/c/Tetris/GameManager.c"
 File Type = "CSource"
-Disk Date = 3516708438
+Disk Date = 3516708918
 In Projects = "1,"
 Window Top = 157
 Window Left = 74
@@ -134,11 +134,11 @@ Source Window State = "1,11,12,12,0,22,22,0,0,86,0,0,0,0,0,25,3,0,26,18,349,731,
 [File 0010]
 Path = "/d/Programmation/c/Tetris/Utils.c"
 File Type = "CSource"
-Disk Date = 3516690514
+Disk Date = 3516709506
 In Projects = "1,"
 Window Top = 126
 Window Left = 58
-Source Window State = "1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,349,683,1,0,"
+Source Window State = "1,0,0,0,0,0,0,0,0,80,0,0,0,0,0,25,0,0,14,21,349,683,1,0,"
 
 [File 0011]
 Path = "/d/Programmation/c/Tetris/CallBack.h"
@@ -188,14 +188,14 @@ Source Window State = "1,212,212,212,6,8,8,0,0,0,0,0,0,0,0,0,65,0,77,13,349,731,
 [File 0016]
 Path = "/d/Programmation/c/Tetris/Utils.h"
 File Type = "Include"
-Disk Date = 3516690514
+Disk Date = 3516709383
 In Projects = "1,"
 Source Window State = "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,"
 
 [File 0017]
 Path = "/d/Programmation/c/Tetris/FileManager.c"
 File Type = "CSource"
-Disk Date = 3516707668
+Disk Date = 3516709406
 In Projects = "1,"
 Window Top = 157
 Window Left = 74

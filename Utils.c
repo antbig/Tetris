@@ -11,7 +11,10 @@
 /**
 	Fichier avec les fonctions utiles
 **/
+#include <windows.h>
+#include <mmsystem.h>
 #include <userint.h>
+
 #include <ansi_c.h>
 #include "Utils.h"
 /**
@@ -70,4 +73,11 @@ int Char_to_Int(char d) {
 	str[0] = d;
 	str[1] = '\0';
 	return (int) strtol(str, NULL, 10);
+}
+
+/**
+	Pour savoir si un fichier existe
+**/
+int File_exist(char *filename) {
+    return GetFileAttributes(filename) != INVALID_FILE_ATTRIBUTES;
 }

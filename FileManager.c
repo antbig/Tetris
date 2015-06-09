@@ -50,6 +50,8 @@ void File_save_game(void) {
 **/
 void File_restor_game(void) {
 	
+	if(!File_exist("save.dat")) return;
+	
 	FILE *save;
 	char linebuffer[30];
 	int counter = 0;
