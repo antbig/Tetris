@@ -25,19 +25,20 @@ void File_save_game(void) {
 	FILE *save;
 	
 	save = fopen("save.dat","w");
-	
+	//On sauvegarde le terrain
 	for(int y=0; y<24; y++) {
 		for(int x = 0; x<12; x++) {
 			fprintf(save,"%d",Game_get_MAP(x,y));
 		}
 		fprintf(save,"\n");
 	}
+	//on sauvegarde le score
 	fprintf(save, "%d\n", Game_get_score());
-	
+	/*
 	for(int x = 0; x<9; x++) {
 		int val = (Game_get_next_piece(x) != -1)?Game_get_next_piece(x):9;
 		fprintf(save,"%d",val);
-	}
+	}*/
 	fprintf(save,"\n");
 	
 	

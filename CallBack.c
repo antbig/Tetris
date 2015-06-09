@@ -127,7 +127,7 @@ int CVICALLBACK OnMouseMoveEvent (int panel, int message, unsigned int* wParam, 
 **/
 int CVICALLBACK CALLBACK_SAVEDATA (int panel, int control, int event, void *callbackData, int eventData1, int eventData2) {
 	if(event = 34) {
-		//File_save_game();
+		//printf("click");
 	}
 	return 0;
 }
