@@ -46,8 +46,15 @@ static long				lignes_eclatees = 0;
 	Pour initialiser la partie
 **/
 void Game_init(void) {
-	
-	while(PromptPopup ("Identification", "Entrez votre pseudo", &username, 40) != 0);
+	int valid = 0;
+	while(!valid) {
+		if(PromptPopup ("Identification", "Entrez votre pseudo", username, 40) != 0) {
+			exit(0);
+		}
+		if(username[0] == 0) {
+			MessagePopup ("Erreur", "Merci de rentrer un pseudo valide");
+		} else valid = 1;
+	}
 	
 	//On prepare l'interface
 	Gui_init();
@@ -144,8 +151,9 @@ void Game_set_lose(void) {
 		
 	}
 	
-	MessagePopup ("Dommage", "Vous avez perdu");
 	Gui_update_display();
+	MessagePopup ("Dommage", "Vous avez perdu");
+
 }
 
 /**
