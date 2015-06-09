@@ -28,6 +28,7 @@
 #define PANEL_GAME_TIMER		7
 #define PANEL_SCORE				8
 #define PANEL_SAVEDATA			9
+#define PANEL_MUSIQUE			10
 
 static int gPostHndl = -1;  
 

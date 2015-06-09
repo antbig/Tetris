@@ -35,10 +35,15 @@ static char				needProcessingTimer = 0;
 
 static long				score = 0;
 
+static char				username[50];
+
 /**
 	Pour initialiser la partie
 **/
 void Game_init(void) {
+	
+	while(PromptPopup ("", "", username, 40) != 0);
+	
 	//On prepare l'interface
 	Gui_init();
 
