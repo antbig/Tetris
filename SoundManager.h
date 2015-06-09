@@ -22,4 +22,14 @@ short Start_Background_Musique(void);
 
 short Play_Move_Sound(void); 
 
+/**
+	Pour arreter la musique
+**/
+void Stop_musique(void);
+
+/**
+	Pour activer/desactiver la musique
+**/
+void Toggle_musique(void);
+
 #endif

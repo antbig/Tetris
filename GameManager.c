@@ -47,7 +47,7 @@ static long				lignes_eclatees = 0;
 **/
 void Game_init(void) {
 	
-	while(PromptPopup ("", "", &username, 40) != 0);
+	while(PromptPopup ("Identification", "Entrez votre pseudo", &username, 40) != 0);
 	
 	//On prepare l'interface
 	Gui_init();

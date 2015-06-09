@@ -18,6 +18,7 @@
 #include "GameManager.h"
 #include "Structure.h"
 #include "FileManager.h"
+#include "SoundManager.h"
 
 extern int gPostHndl;
 
@@ -136,5 +137,11 @@ int CVICALLBACK CALLBACK_SAVEDATA (int panel, int control, int event, void *call
 	Callback sur le a musique
 **/
 int CVICALLBACK CALLBACK_MUSIQUE (int panel, int control, int event, void *callbackData, int eventData1, int eventData2) {
+	switch(event) {
+		case EVENT_COMMIT:
+			Toggle_musique();
+		break;
+	}
 	
+	return 0;
 }

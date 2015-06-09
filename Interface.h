@@ -23,7 +23,7 @@
 #define  PANEL_GAME_TIMER                 7       /* control type: timer, callback function: TimerCallback */
 #define  PANEL_SCORE                      8       /* control type: numeric, callback function: (none) */
 #define  PANEL_SAVEDATA                   9       /* control type: command, callback function: CALLBACK_SAVEDATA */
-#define  PANEL_MUSIQUE                    10      /* control type: textButton, callback function: CALLBACK_MUSIQUE */
+#define  PANEL_MUSIQUE                    10      /* control type: command, callback function: CALLBACK_MUSIQUE */
 
 
      /* Control Arrays: */

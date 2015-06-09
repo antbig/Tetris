@@ -49,10 +49,12 @@ void File_save_game(void) {
 	Pour restorer la partie
 **/
 void File_restor_game(void) {
+	
 	FILE *save;
 	char linebuffer[30];
 	int counter = 0;
 	save = fopen("save.dat","r");
+	
 	//printf("\n");
 	while (fgets(linebuffer, 30, save)!=0){
 		if(counter <24) {
