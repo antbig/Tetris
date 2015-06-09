@@ -77,7 +77,7 @@ long Game_get_score(void);
 void Game_set_score(long s);
 
 /**
-	Pour passer à la piece suivante 
+	Pour passer Ã  la piece suivante 
 **/
 void Game_change_piece(void);
 
@@ -130,5 +130,15 @@ void Game_remove_line(int line);
 	Pour actualiser la piece fantome
 **/
 void Game_update_ghost_piece(void);
+
+/**
+	Pour mettre à jour le niveau
+**/
+void Update_leveling(int lignes);
+
+/**
+	Pour renvoyer le niveau atteint par le joueur
+**/
+int Get_level();
 
 #endif
