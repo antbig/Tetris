@@ -18,7 +18,7 @@
 #include "Structure.h"
 #include "FileManager.h"
 
-//La liste des pieces a venir
+//La liste des pieces aÂ venir
 //0=> Piece actuelle
 //1=> Piece Suivante
 static char				Game_Pieces[9] = {-1,-1,-1,-1,-1,-1,-1,-1};
@@ -34,6 +34,11 @@ static Piece_S			Game_piece_ghost;
 static char				needProcessingTimer = 0;
 
 static long				score = 0;
+
+static int				level = 1;
+
+static long				lignes_eclatees = 0;
+
 
 /**
 	Pour initialiser la partie
@@ -126,7 +131,7 @@ void Game_set_lose(void) {
 	
 	
 	
-	//On remplit l'écran de toutes les couleurs
+	//On remplit l'Ã©cran de toutes les couleurs
 	for(int x =0; x<12; x++) {
 		for(int y =0; y<24; y++) {
 			Game_MAP[y][x] = (rand() % 7 + 1);
@@ -223,7 +228,7 @@ void Game_change_piece(void) {
 		Game_Pieces[i] = Game_Pieces[i+1];
 	}
 	Game_Pieces[8] = -1;
-	//On regarde s'il y a besoin de regenerer la liste des pieces a  venir
+	//On regarde s'il y a besoin de regenerer la liste des pieces aÂ  venir
 	if(Game_Pieces[2] == -1) {
 		Game_generate_piece();
 	}
@@ -511,6 +516,8 @@ void Game_check_complete_line(void) {
 	if(line !=0) {
 		score += 10*(line*line);
 		Gui_set_score(score);
+		Update_leveling(line);
+
 	}
 }
 
@@ -541,4 +548,30 @@ void Game_update_ghost_piece(void) {
 	Game_piece_ghost.y -=1;
 	
 	Gui_display_gosth(Game_piece_ghost);
+}
+
+/**
+	Pour mettre à jour le niveau
+**/
+
+void Update_leveling(int lignes)
+{
+	if(level <= 9)
+	{
+		lignes_eclatees += lignes;
+		if(lignes_eclatees >= (10 + (5*(level-1))))
+		{
+			level++;
+			lignes_eclatees -= (10 + (5*(level-1)));
+			Gui_Timer_set_interval(1.0 - (level/10));
+		}
+	}
+}
+
+/**
+	Pour renvoyer le niveau atteint par le joueur
+**/
+int Get_level()
+{
+	return level;
 }
