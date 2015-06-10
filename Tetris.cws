@@ -68,7 +68,7 @@ Source Window State = "1,206,206,206,29,33,33,0,3,86,0,0,0,0,0,25,197,0,206,29,3
 [File 0003]
 Path = "/d/Programmation/c/Tetris/Interface.uir"
 File Type = "User Interface Resource"
-Disk Date = 3516767661
+Disk Date = 3516772629
 In Projects = "1,"
 Window Top = 33
 Window Left = 10
@@ -178,7 +178,7 @@ Source Window State = "1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,17,22,349,683,1,0,"
 [File 0015]
 Path = "/d/Programmation/c/Tetris/GuiManager.h"
 File Type = "Include"
-Disk Date = 3516766673
+Disk Date = 3516772535
 In Projects = "1,"
 Window Top = 188
 Window Left = 90

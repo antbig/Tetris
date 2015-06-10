@@ -24,6 +24,8 @@
 #define  PANEL_SCORE                      8       /* control type: numeric, callback function: (none) */
 #define  PANEL_MUSIQUE                    9       /* control type: command, callback function: CALLBACK_MUSIQUE */
 #define  PANEL_REPRENDRE                  10      /* control type: command, callback function: CALLBACK_REPRENDRE */
+#define  PANEL_MSG_LEVEL                  11      /* control type: textMsg, callback function: (none) */
+#define  PANEL_MSG_OBJECTIF               12      /* control type: textMsg, callback function: (none) */
 
 
      /* Control Arrays: */

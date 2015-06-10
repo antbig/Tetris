@@ -29,6 +29,8 @@
 #define PANEL_SCORE				8
 #define PANEL_MUSIQUE			9
 #define PANEL_REPRENDRE			10
+#define PANEL_MSG_LEVEL			11
+#define PANEL_MSG_OBJECTIF		12
 
 static int gPostHndl = -1;  
 
@@ -121,5 +123,10 @@ void Gui_set_boutton_pause(void);
 	Pour mettre les bouttons avec le texte lors d'une defaite
 **/
 void Gui_set_boutton_lose(void);
+
+/**
+	Pour afficher le niveau
+**/
+void Gui_display_level(int level);
 
 #endif

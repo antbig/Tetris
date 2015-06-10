@@ -313,3 +313,16 @@ void Gui_set_boutton_lose(void) {
 	SetCtrlAttribute (panelHandle, PANEL_JOUER,		ATTR_LABEL_TEXT , "SCORE");
 	SetCtrlAttribute (panelHandle, PANEL_REPRENDRE, ATTR_LABEL_TEXT , "RECOMMENCER");
 }
+
+/**
+	Pour afficher le niveau
+**/
+void Gui_display_level(int level) {
+	char niveau[50];
+	sprintf(niveau, "Niveau : %d",level);
+	SetCtrlVal (panelHandle, PANEL_MSG_LEVEL, niveau);
+	
+	char objectif[50];
+	sprintf(objectif, "Objectif : %d",(10 + (5*(level-1))));
+	SetCtrlVal (panelHandle, PANEL_MSG_OBJECTIF, objectif);
+}

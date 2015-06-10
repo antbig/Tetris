@@ -152,6 +152,8 @@ void Game_start(void) {
 	//On lance le timer
 	Gui_Timer_enable();
 	
+	Gui_display_level(level);
+	
 	Gui_update_display();
 	Gui_update_falling_piece();
 	Gui_update_next_piece();
@@ -649,6 +651,7 @@ void Update_leveling(int lignes)
 			Gui_Timer_set_interval(1.0 - (level/10));
 		}
 	}
+	Gui_display_level(level);
 }
 
 /**
