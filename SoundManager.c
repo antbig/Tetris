@@ -61,6 +61,13 @@ void Toggle_musique(void) {
 	}
 }
 
+/**
+	Pour savoir si la musique est activé
+**/
+short Sound_isEnable(void) {
+	return MusiqueEnable;
+}
+
 /**********
 
 waveOutSetVolume(0,0xFFFFFFFF); Pour changer le volume

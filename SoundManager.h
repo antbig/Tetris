@@ -32,4 +32,9 @@ void Stop_musique(void);
 **/
 void Toggle_musique(void);
 
+/**
+	Pour savoir si la musique est activé
+**/
+short Sound_isEnable(void);
+
 #endif

@@ -131,6 +131,9 @@ void File_get_user(char *username[50], User_profil *newProfil) {
 				}
 			}
 		}
+		if(counter == 27) {
+			newProfil->backup_score		= (long)strtol(linebuffer, NULL, 10);
+		}
 		
 		counter++;
 	}
@@ -165,6 +168,7 @@ void File_save_user(User_profil *Profil) {
 			}
 			fprintf(save,"\n");
 		}
+		fprintf(save,"%d\n",0);
 	} else {
 		for(int y=0; y<24; y++) {
 			for(int x = 0; x<12; x++) {
@@ -172,7 +176,9 @@ void File_save_user(User_profil *Profil) {
 			}
 			fprintf(save,"\n");
 		}
+		fprintf(save,"%d\n",Game_get_score());
 	}
+	
 	
 	
 	fclose(save);

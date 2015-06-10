@@ -77,8 +77,10 @@ void Game_start_backup(void) {
 	score = user.backup_score;
 	if(user.backup_level == 0) {
 		level = 1;
+		score = 0;
 	} else {
 		level = user.backup_level;
+		Game_set_score(user.backup_score);
 	}
 	
 	//On initialise la liste des pieces
@@ -173,6 +175,12 @@ void Game_pause(void) {
 	Gui_Timer_disable();
 	Game_etat = PAUSE;
 	Gui_set_boutton_pause();
+	
+	//user.hightScore		= 0;
+	user.backup_score	= score;
+	user.backup_level	= level;
+	user.musique		= Sound_isEnable();
+	
 	File_save_user(&user);
 	
 }
