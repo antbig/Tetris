@@ -16,6 +16,7 @@
 #include "FileManager.h"
 #include "GameManager.h"
 #include "Utils.h"
+#include "Structure.h"
 
 /**
 	Pour sauvegarder la partie dans un fichier
@@ -87,3 +88,108 @@ void File_restor_game(void) {
 	
 	fclose(save);
 }
+
+/**
+	Pour obtenir le profil d'un joueur
+**/
+void File_get_user(char *username[50], User_profil *newProfil) {
+	char fileProfil[200] = "userData/";
+	
+	
+		
+	strcat(fileProfil, username);
+	strcat(fileProfil, ".dat");  
+	
+	strcpy(newProfil->username, username);
+	
+	if(!File_exist(fileProfil)) {
+		newProfil->hightScore	= 0;
+		newProfil->backup_score	= 0;
+		newProfil->backup_level	= 1;
+		newProfil->musique		= 1;
+		return;
+	} 
+	
+	FILE *save;
+	char linebuffer[30];
+	int counter = 0;
+	save = fopen(fileProfil,"rd");
+	
+	while (fgets(linebuffer, 30, save)!=0){
+		
+		if(counter == 1) {
+			newProfil->musique		= Char_to_Int(linebuffer[0]);
+		}
+		
+		if(counter == 2) {
+			newProfil->backup_level		= Char_to_Int(linebuffer[0]);
+		}
+		if(counter >=3 && counter < 27) {
+			for(int d = 0; d<12; d++) {
+				if(linebuffer[d] != 32) {
+					newProfil->backup_MAP[counter-3][d] = Char_to_Int(linebuffer[d]);
+				}
+			}
+		}
+		
+		counter++;
+	}
+	
+	
+	fclose(save);
+
+}
+
+/**
+	Pour sauvegarder le profil d'un utilisateur
+**/
+void File_save_user(User_profil *Profil) {
+	char fileProfil[200] = "userData/";
+	
+	strcat(fileProfil, Profil->username);
+	strcat(fileProfil, ".dat"); 
+	
+	FILE *save;
+	save = fopen(fileProfil,"w");
+	
+	fprintf(save,"%s\n",Profil->username);
+	
+	fprintf(save,"%d\n",Profil->musique);
+	
+	fprintf(save,"%d\n",Profil->backup_level);
+	
+	if(Profil->backup_level == 0) { 
+		for(int y=0; y<24; y++) {
+			for(int x = 0; x<12; x++) {
+				fprintf(save,"%d",0);
+			}
+			fprintf(save,"\n");
+		}
+	} else {
+		for(int y=0; y<24; y++) {
+			for(int x = 0; x<12; x++) {
+				fprintf(save,"%d",Game_get_MAP(x,y));
+			}
+			fprintf(save,"\n");
+		}
+	}
+	
+	
+	fclose(save);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+

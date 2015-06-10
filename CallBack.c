@@ -36,16 +36,19 @@ int CVICALLBACK CALLBACK_CLOSE (int panel, int control, int event, void *callbac
 	Callback sur le bouton Jouer/Stop
 **/
 int CVICALLBACK CALLBACK_JOUER (int panel, int control, int event, void *callbackData, int eventData1, int eventData2) {
-	if(event == 34) {//Click
+	if(event == EVENT_COMMIT) {//Click
 		if(Game_get_etat() == WAITING) {
-			Game_start();
-			SetCtrlAttribute (panel, control, ATTR_LABEL_TEXT , "STOP");
-		} else if(Game_get_etat() == INGAME) {
-			Game_stop();
-			SetCtrlAttribute (panel, control, ATTR_LABEL_TEXT , "JOUER");
-			File_save_game();
+			
+			Game_start_backup();
+			
+		} else if(Game_get_etat() == PAUSE) {
+			
+			Game_quit_pause();
+			
 		} else {
 			
+			Game_pause();
+	
 		}
 		
 	}
@@ -60,7 +63,7 @@ int CVICALLBACK TimerCallback (int panel, int control, int event, void *callback
 	switch (event)
 	{
 		case EVENT_TIMER_TICK:
-			if(Game_get_etat() != INGAME) return 0;
+			//if(Game_get_etat() != INGAME) return 0;
 			Game_Piece_fall();
 		break;
 	}
@@ -90,6 +93,12 @@ int CVICALLBACK PANEL_CALLBACK (int panel, int event, void *callbackData, int ev
 				Game_Piece_fall();
 			}
 			
+		break;
+		case EVENT_CLOSE:
+			printf("test");
+		break;
+		case EVENT_LOST_FOCUS:
+			Game_pause();
 		break;
 	}
 	return 0;
@@ -124,11 +133,11 @@ int CVICALLBACK OnMouseMoveEvent (int panel, int message, unsigned int* wParam, 
 
 
 /**
-	Callback sur le save
+	Callback sur le reprendre
 **/
-int CVICALLBACK CALLBACK_SAVEDATA (int panel, int control, int event, void *callbackData, int eventData1, int eventData2) {
-	if(event = 34) {
-		//printf("click");
+int CVICALLBACK CALLBACK_REPRENDRE (int panel, int control, int event, void *callbackData, int eventData1, int eventData2) {
+	if(event == EVENT_COMMIT) {
+		Game_start_new();
 	}
 	return 0;
 }

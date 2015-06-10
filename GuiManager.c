@@ -289,3 +289,27 @@ void Gui_display_gosth(Piece_S piece) {
 		}
 	}
 }
+
+/**
+	Pour mettre le boiutton avec le texte en cours de partie
+**/
+void Gui_set_boutton_ingame(void) {
+	SetCtrlAttribute (panelHandle, PANEL_JOUER,		ATTR_LABEL_TEXT , "PAUSE");
+	SetCtrlAttribute (panelHandle, PANEL_REPRENDRE, ATTR_LABEL_TEXT , "RECOMMENCER");
+}
+
+/**
+	Pour mettre les bouttons avec le texte en pause
+**/
+void Gui_set_boutton_pause(void) {
+	SetCtrlAttribute (panelHandle, PANEL_JOUER,		ATTR_LABEL_TEXT , "REPRENDRE");
+	SetCtrlAttribute (panelHandle, PANEL_REPRENDRE, ATTR_LABEL_TEXT , "RECOMMENCER");
+}
+
+/**
+	Pour mettre les bouttons avec le texte lors d'une defaite
+**/
+void Gui_set_boutton_lose(void) {
+	SetCtrlAttribute (panelHandle, PANEL_JOUER,		ATTR_LABEL_TEXT , "SCORE");
+	SetCtrlAttribute (panelHandle, PANEL_REPRENDRE, ATTR_LABEL_TEXT , "RECOMMENCER");
+}

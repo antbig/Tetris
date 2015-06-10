@@ -18,7 +18,7 @@
 #include "Structure.h"
 #include "FileManager.h"
 
-//La liste des pieces aÂ venir
+//La liste des pieces a venir
 //0=> Piece actuelle
 //1=> Piece Suivante
 static char				Game_Pieces[9] = {-1,-1,-1,-1,-1,-1,-1,-1};
@@ -35,18 +35,21 @@ static char				needProcessingTimer = 0;
 
 static long				score = 0;
 
-static char				username[50];
+static User_profil		user;
 
 static int				level = 1;
 
 static long				lignes_eclatees = 0;
 
 
+
 /**
 	Pour initialiser la partie
 **/
 void Game_init(void) {
-	int valid = 0;
+	int 	valid = 0;
+	char	username[50];
+
 	while(!valid) {
 		if(PromptPopup ("Identification", "Entrez votre pseudo", username, 40) != 0) {
 			exit(0);
@@ -55,6 +58,8 @@ void Game_init(void) {
 			MessagePopup ("Erreur", "Merci de rentrer un pseudo valide");
 		} else valid = 1;
 	}
+	
+	File_get_user(username, &user);
 	
 	//On prepare l'interface
 	Gui_init();
@@ -65,10 +70,40 @@ void Game_init(void) {
 }
 
 /**
-	Pour debuter une partie
+	Pour reprendre une partie sauvegarde
 **/
-void Game_start(void) {
+void Game_start_backup(void) {
 	if(Game_etat == INGAME) return;
+	score = user.backup_score;
+	if(user.backup_level == 0) {
+		level = 1;
+	} else {
+		level = user.backup_level;
+	}
+	
+	//On initialise la liste des pieces
+	srand(clock());
+	for(int i =0; i<9; i++) {
+		Game_Pieces[i] = -1;
+	}
+	
+	Game_Pieces[0] = rand()%7;
+	Game_Pieces[1] = rand()%7;
+	Game_generate_piece();
+
+	memcpy ( Game_MAP, user.backup_MAP, sizeof(Game_MAP)+1 ) ; 
+	
+	Game_start();
+}
+
+/**
+	Pour debuter une nouvelle partie
+**/
+void Game_start_new(void) {
+	
+	//if(Game_etat == INGAME) return;
+	
+	Gui_Timer_disable();
 	
 	score = 0;
 	
@@ -87,31 +122,31 @@ void Game_start(void) {
 			Game_MAP[y][x] = 0;
 		}
 	}
-	/*TEST*/
-	/*for(int x =2; x<11; x++) {
-		for(int y =22; y>18; y--) {
-			Game_MAP[y][x] = rand()%6 +1;
-		}
-	}*/
 	
-	
-	File_restor_game();
-	//On initialise la piece actuelle
+	Game_start();
+}
 
+/**
+	Pour lancer la partie
+**/
+void Game_start(void) {
+	
+	//On initialise la piece actuelle
 	Game_Piece_Actuel.piece_type = Game_Pieces[0];
-	//Game_Piece_Actuel.piece_type = 0;//test
 	Game_Piece_Actuel.x = 4;
 	Game_Piece_Actuel.y = 0;
 	Game_Piece_Actuel.orientation = 0;
-	
 	
 	
 	//On initialise la piece fantome
 	Game_piece_ghost = Game_Piece_Actuel;
 	
 	//On lance la musique
-	Start_Background_Musique(); 
+	if(user.musique)
+		Start_Background_Musique(); 
 	
+	
+	Gui_set_boutton_ingame();
 	//On lance le timer
 	Gui_Timer_enable();
 	
@@ -132,16 +167,36 @@ void Game_stop(void) {
 }
 
 /**
+	Pour mettre en pause une partie
+**/
+void Game_pause(void) {
+	Gui_Timer_disable();
+	Game_etat = PAUSE;
+	Gui_set_boutton_pause();
+	File_save_user(&user);
+	
+}
+
+/**
+	Pour quitter la pause
+**/
+void Game_quit_pause(void) {
+	Game_etat = INGAME;
+	Gui_Timer_enable();
+	Gui_set_boutton_ingame();
+}
+
+/**
 	Pour indiquer que la partie est perdue
 **/
 void Game_set_lose(void) {
 	Game_etat = WAITING;
 	
+	Gui_Timer_disable();
+	
 	Gui_update_display();
+	
 	Gui_update_falling_piece();
-	//printf("Fin de la partie");
-	
-	
 	
 	//On remplit l'Ã©cran de toutes les couleurs
 	for(int x =0; x<12; x++) {
@@ -151,7 +206,14 @@ void Game_set_lose(void) {
 		
 	}
 	
+	user.backup_level = 0; //pour indiquer que la sauvegarde ne doit pas etre effectué sur cette partie
+	
+	Gui_set_boutton_lose();
+	
 	Gui_update_display();
+
+	File_save_user(&user);
+	
 	MessagePopup ("Dommage", "Vous avez perdu");
 
 }

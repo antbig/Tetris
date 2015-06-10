@@ -22,6 +22,16 @@
 void Game_init(void);
 
 /**
+	Pour reprendre une partie sauvegarde
+**/
+void Game_start_backup(void);
+
+/**
+	Pour debuter une nouvelle partie
+**/
+void Game_start_new(void);
+
+/**
 	Pour debuter une partie
 **/
 void Game_start(void);
@@ -30,6 +40,16 @@ void Game_start(void);
 	Pour arreter une partie
 **/
 void Game_stop(void);
+
+/**
+	Pour mettre en pause une partie
+**/
+void Game_pause(void);
+
+/**
+	Pour quitter la pause
+**/
+void Game_quit_pause(void);
 
 /**
 	Pour regarder si la partie est perdue

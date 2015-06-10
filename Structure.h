@@ -73,6 +73,20 @@ typedef struct
 }Piece_S;
 
 /**
+	Le profil d'un joueur
+**/
+typedef struct
+{
+	char			username[50];
+	int				hightScore;
+	int				backup_score;
+	short			backup_level;
+	unsigned char	backup_MAP[24][12];
+	char			musique;
+	
+} User_profil;
+
+/**
 	Le liste de toutes les pieces du jeu
 **/
 static Piece Pieces[7] = {

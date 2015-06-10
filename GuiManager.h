@@ -27,8 +27,8 @@
 #define PANEL_CLOSE				6
 #define PANEL_GAME_TIMER		7
 #define PANEL_SCORE				8
-#define PANEL_SAVEDATA			9
-#define PANEL_MUSIQUE			10
+#define PANEL_MUSIQUE			9
+#define PANEL_REPRENDRE			10
 
 static int gPostHndl = -1;  
 
@@ -106,5 +106,20 @@ void Gui_set_score(int score);
 	Pour afficher la piece fantome
 **/
 void Gui_display_gosth(Piece_S piece);
+
+/**
+	Pour mettre lse bouttons avec le texte en cours de partie
+**/
+void Gui_set_boutton_ingame(void);
+
+/**
+	Pour mettre les bouttons avec le texte en pause
+**/
+void Gui_set_boutton_pause(void);
+
+/**
+	Pour mettre les bouttons avec le texte lors d'une defaite
+**/
+void Gui_set_boutton_lose(void);
 
 #endif

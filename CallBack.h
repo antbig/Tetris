@@ -42,9 +42,9 @@ int CVICALLBACK PANEL_CALLBACK (int panel, int event, void *callbackData, int ev
 int CVICALLBACK OnMouseMoveEvent (int panel, int message, unsigned int* wParam, unsigned int* lParam, void* callbackData);
 
 /**
-	Callback sur le save
+	Callback sur le reprendre
 **/
-int CVICALLBACK CALLBACK_SAVEDATA (int panel, int control, int event, void *callbackData, int eventData1, int eventData2);
+int CVICALLBACK CALLBACK_REPRENDRE (int panel, int control, int event, void *callbackData, int eventData1, int eventData2);
 
 /**
 	Callback sur le a musique
