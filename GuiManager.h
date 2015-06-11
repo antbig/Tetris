@@ -5,7 +5,7 @@
 **   Par Leonard Antoine <antoine.leonard@u-psud.fr> **
 **    et David   Pierre  <pierre.david1@u-psud.fr>   **
 **													 **
-**	 tous droits rÃ©servÃ©s							 **
+**	 tous droits rÃƒÂ©servÃƒÂ©s							 **
 ** 													 **
 *******************************************************/
 
@@ -55,7 +55,7 @@ void Gui_remove_Border(int panel, int image);
 int Gui_get_Interface(void);
 
 /**
-	Pour obtenir l'image a  partir de la couleur
+	Pour obtenir l'image aÂ  partir de la couleur
 **/
 int Gui_get_IMG(int color);
 
@@ -127,6 +127,6 @@ void Gui_set_boutton_lose(void);
 /**
 	Pour afficher le niveau
 **/
-void Gui_display_level(int level);
+void Gui_display_level(void);
 
 #endif
