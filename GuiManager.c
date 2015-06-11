@@ -144,7 +144,7 @@ int Gui_get_Interface(void) {
 
 
 /**
-	Pour obtenir l'image a  partir de la couleur
+	Pour obtenir l'image aÂ  partir de la couleur
 **/
 int Gui_get_IMG(int color) {
 	
@@ -317,12 +317,12 @@ void Gui_set_boutton_lose(void) {
 /**
 	Pour afficher le niveau
 **/
-void Gui_display_level(int level) {
+void Gui_display_level(void) {
 	char niveau[50];
-	sprintf(niveau, "Niveau : %d",level);
+	sprintf(niveau, "Niveau : %d",Get_level());
 	SetCtrlVal (panelHandle, PANEL_MSG_LEVEL, niveau);
 	
 	char objectif[50];
-	sprintf(objectif, "Objectif : %d",(10 + (5*(level-1))));
+	sprintf(objectif, "Objectif : %d",Get_lignes_restantes());
 	SetCtrlVal (panelHandle, PANEL_MSG_OBJECTIF, objectif);
 }
