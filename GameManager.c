@@ -9,320 +9,663 @@
 ** 													 **
 *******************************************************/
 
-#include <windows.h>
-#include "toolbox.h"
-#include <ansi_c.h>
-#include <cvirte.h>		
 #include <userint.h>
-#include "GuiManager.h"
+#include <utility.h>
+#include <ansi_c.h>
 #include "GameManager.h"
-#include "Utils.h"
+#include "SoundManager.h"
+#include "GuiManager.h"
 #include "Structure.h"
-#include "CallBack.h"
+#include "FileManager.h"
 
-static int panelHandle;
+//La liste des pieces aÂ venir
+//0=> Piece actuelle
+//1=> Piece Suivante
+static char				Game_Pieces[9] = {-1,-1,-1,-1,-1,-1,-1,-1};
 
-static int IMG_Empty, IMG_Red, IMG_Green, IMG_Blue, IMG_Purple, IMG_Yellow, IMG_Aqua, IMG_Orange, IGM_Ghost;
+static unsigned char	Game_MAP[24][12];
+
+static unsigned char	Game_etat = WAITING;
+
+static Piece_S			Game_Piece_Actuel;
+
+static Piece_S			Game_piece_ghost;
+
+static char				needProcessingTimer = 0;
+
+static long				score = 0;
+
+static User_profil		user;
+
+static int				level = 1;
+
+static long				lignes_eclatees = 0;
+
 
 
 /**
-	Fonction pour initialiser l'interface
+	Pour initialiser la partie
 **/
-void Gui_init(void) {
+void Game_init(void) {
+	int 	valid = 0;
+	char	username[50];
+
+	while(!valid) {
+		if(PromptPopup ("Identification", "Entrez votre pseudo", username, 40) != 0) {
+			exit(0);
+		}
+		if(username[0] == 0) {
+			MessagePopup ("Erreur", "Merci de rentrer un pseudo valide");
+		} else valid = 1;
+	}
 	
-	if ((panelHandle = LoadPanel (0, "Interface.uir", PANEL)) < 0)
-		return;
-	Gui_remove_Border(panelHandle, PANEL_BACKGROUND);
+	File_get_user(username, &user);
 	
-	/**
-		On sauvegarde les blocs dans des variables
-	**/
-	GetBitmapFromFile("images/Empty.bmp", &IMG_Empty);
-	GetBitmapFromFile("images/Red.bmp", &IMG_Red);
-	GetBitmapFromFile("images/Green.bmp", &IMG_Green);
-	GetBitmapFromFile("images/Blue.bmp", &IMG_Blue);
-	GetBitmapFromFile("images/Purple.bmp", &IMG_Purple);
-	GetBitmapFromFile("images/Yellow.bmp", &IMG_Yellow);
-	GetBitmapFromFile("images/Aqua.bmp", &IMG_Aqua);
-	GetBitmapFromFile("images/Orange.bmp", &IMG_Orange);
-	GetBitmapFromFile("images/Ghost.bmp", &IGM_Ghost);
+	//On prepare l'interface
+	Gui_init();
+
+	//On definit l'intervalle du timer
+	Gui_Timer_set_interval(0.6);
+
+}
+
+/**
+	Pour reprendre une partie sauvegarde
+**/
+void Game_start_backup(void) {
+	if(Game_etat == INGAME) return;
+	score = user.backup_score;
+	if(user.backup_level == 0) {
+		level = 1;
+		score = 0;
+	} else {
+		level = user.backup_level;
+		Game_set_score(user.backup_score);
+	}
 	
-	/**
-		On rend transparent le bloc Empty et Ghost
-	**/
-	MakeColorTransparent(IMG_Empty, VAL_RED);
-	MakeColorTransparent(IGM_Ghost, VAL_RED);
+	//On initialise la liste des pieces
+	srand(clock());
+	for(int i =0; i<9; i++) {
+		Game_Pieces[i] = -1;
+	}
 	
-	/**
-		On rend le background de la table transparent  
-	**/
-	SetTableCellRangeAttribute (panelHandle, PANEL_TABLE, MakeRect (1, 1, 22, 10), ATTR_TEXT_BGCOLOR, VAL_TRANSPARENT);
-	SetCtrlAttribute(panelHandle, PANEL_TABLE, ATTR_TABLE_BGCOLOR, VAL_TRANSPARENT);  
+	Game_Pieces[0] = rand()%7;
+	Game_Pieces[1] = rand()%7;
+	Game_generate_piece();
+
+	memcpy ( Game_MAP, user.backup_MAP, sizeof(Game_MAP)+1 ) ; 
 	
-	SetTableCellRangeAttribute (panelHandle, PANEL_TABLE_NEXT, MakeRect (1, 1, 4, 4), ATTR_TEXT_BGCOLOR, VAL_TRANSPARENT);
-	SetCtrlAttribute(panelHandle, PANEL_TABLE_NEXT, ATTR_TABLE_BGCOLOR, VAL_TRANSPARENT);  
+	Game_start();
+}
+
+/**
+	Pour debuter une nouvelle partie
+**/
+void Game_start_new(void) {
 	
-	/**
-		On affiche la grille vide du jeu
-	**/
-	InsertTableRows (panelHandle, PANEL_TABLE, -1, 22, VAL_CELL_PICTURE);
-	InsertTableColumns (panelHandle, PANEL_TABLE, -1, 10, VAL_CELL_PICTURE);
+	//if(Game_etat == INGAME) return;
 	
-	for (int width = 1; width <= 10; width++)
-	{
-		for (int height = 1; height <= 22; height++)
-		{
-			SetTableCellAttribute(panelHandle, PANEL_TABLE, MakePoint(width,height), ATTR_CTRL_VAL, IMG_Empty);
+	Gui_Timer_disable();
+	
+	score = 0;
+	
+	srand(clock());
+	//On initialise la liste des pieces
+	for(int i =0; i<9; i++) {
+		Game_Pieces[i] = -1;
+	}
+	
+	Game_Pieces[0] = rand()%7;
+	Game_Pieces[1] = rand()%7;
+	Game_generate_piece();
+	
+	for(int x =0; x<12; x++) {
+		for(int y =0; y<24; y++) {
+			Game_MAP[y][x] = 0;
 		}
 	}
 	
-	for (int width = 1; width <= 4; width++)
-	{
-		for (int height = 1; height <= 4; height++)
-		{
-			SetTableCellAttribute(panelHandle, PANEL_TABLE_NEXT, MakePoint(width,height), ATTR_CTRL_VAL, IMG_Empty);
+	Game_start();
+}
+
+/**
+	Pour lancer la partie
+**/
+void Game_start(void) {
+	
+	//On initialise la piece actuelle
+	Game_Piece_Actuel.piece_type = Game_Pieces[0];
+	Game_Piece_Actuel.x = 4;
+	Game_Piece_Actuel.y = 0;
+	Game_Piece_Actuel.orientation = 0;
+	
+	
+	//On initialise la piece fantome
+	Game_piece_ghost = Game_Piece_Actuel;
+	
+	//On lance la musique
+	if(user.musique)
+		Start_Background_Musique(); 
+	
+	
+	Gui_set_boutton_ingame();
+	//On lance le timer
+	Gui_Timer_enable();
+	
+	Gui_display_level();
+	
+	Gui_update_display();
+	Gui_update_falling_piece();
+	Gui_update_next_piece();
+	
+	Game_etat = INGAME;
+}
+
+/**
+	Pour arreter une partie
+**/
+void Game_stop(void) {
+	if(Game_etat == WAITING) return;
+	Game_etat = WAITING;
+	Gui_Timer_disable();
+}
+
+/**
+	Pour mettre en pause une partie
+**/
+void Game_pause(void) {
+	Gui_Timer_disable();
+	Game_etat = PAUSE;
+	Gui_set_boutton_pause();
+	
+	//user.hightScore		= 0;
+	user.backup_score	= score;
+	user.backup_level	= level;
+	user.musique		= Sound_isEnable();
+	
+	File_save_user(&user);
+	
+}
+
+/**
+	Pour quitter la pause
+**/
+void Game_quit_pause(void) {
+	Game_etat = INGAME;
+	Gui_Timer_enable();
+	Gui_set_boutton_ingame();
+}
+
+/**
+	Pour indiquer que la partie est perdue
+**/
+void Game_set_lose(void) {
+	Game_etat = WAITING;
+	
+	Gui_Timer_disable();
+	
+	Gui_update_display();
+	
+	Gui_update_falling_piece();
+	
+	//On remplit l'ÃƒÂ©cran de toutes les couleurs
+	for(int x =0; x<12; x++) {
+		for(int y =0; y<24; y++) {
+			Game_MAP[y][x] = (rand() % 7 + 1);
 		}
+		
 	}
 	
-	/**
-		On rend transparent le score
-	**/
-	SetCtrlAttribute(panelHandle, PANEL_SCORE, ATTR_LABEL_BGCOLOR, VAL_TRANSPARENT);  
-	SetCtrlAttribute(panelHandle, PANEL_SCORE, ATTR_TEXT_BGCOLOR, VAL_TRANSPARENT);  
-}
+	user.backup_level = 0; //pour indiquer que la sauvegarde ne doit pas etre effectuÃ© sur cette partie
+	
+	Gui_set_boutton_lose();
+	
+	Gui_update_display();
 
-/**
-	Fonction pour afficher l'interface
-**/
-void Gui_display(void) {
-	DisplayPanel (panelHandle);
-	RunUserInterface ();
+	File_save_user(&user);
 	
-	RemoveWinMsgCallback(panelHandle, WM_MOUSEMOVE);
-	DiscardPanel (panelHandle);
-}
-
-/**
-	Pour supprimer la bordure de la fenetre
-**/
-void Gui_remove_Border(int panel, int image) {
-	
-	HWND hwnd;
-	GetPanelAttribute(panel, ATTR_SYSTEM_WINDOW_HANDLE, (int*)&hwnd);
-	
-	int hasTitleBar;
-	GetPanelAttribute(panel, ATTR_TITLEBAR_VISIBLE, &hasTitleBar);
-	
-	int titleBarHeight = (hasTitleBar)?GetSystemMetrics(SM_CYCAPTION):0;
-	
-	RECT clientRect, windowRect;
-	GetClientRect(hwnd, &clientRect);
-	GetWindowRect(hwnd, &windowRect);
-	
-	int Top = ((windowRect.bottom - windowRect.top - titleBarHeight) - clientRect.bottom)/2 + titleBarHeight;
-	int Left= (windowRect.right - windowRect.left - clientRect.right)/2;
-	
-	int PictureWidth, PictureHeight;
-	GetCtrlAttribute(panel, image, ATTR_WIDTH, &PictureWidth);
-	GetCtrlAttribute(panel, image, ATTR_HEIGHT, &PictureHeight);
-	
-	HRGN hOriginalRgn = CreateRectRgn(Left, Top, PictureWidth+Left, PictureHeight+Top);
-	SetWindowRgn(hwnd, hOriginalRgn, TRUE);
-	
-	InstallWinMsgCallback(panel, WM_MOUSEMOVE, OnMouseMoveEvent, VAL_MODE_INTERCEPT, NULL, &gPostHndl); 
-	if(hOriginalRgn) DeleteObject(hOriginalRgn);
-	
+	MessagePopup ("Dommage", "Vous avez perdu");
 
 }
 
 /**
-	Pour recuperer l'interface
+	Pour obtenir l'etat de la partie
 **/
-int Gui_get_Interface(void) {
-		return panelHandle;
-}
-
-
-/**
-	Pour obtenir l'image aÂ  partir de la couleur
-**/
-int Gui_get_IMG(int color) {
-	
-	int returnColor;
-	
-	switch(color) {
-		case RED:
-			returnColor = IMG_Red;
-		break;
-		case GREEN:
-			returnColor = IMG_Green;
-		break;
-		case BLUE:
-			returnColor = IMG_Blue;
-		break;
-		case PURPLE:
-			returnColor = IMG_Purple;
-		break;
-		case YELLOW:
-			returnColor = IMG_Yellow;
-		break;
-		case AQUA:
-			returnColor = IMG_Aqua;
-		break;
-		case ORANGE:
-			returnColor = IMG_Orange;
-		break;
-		default:
-			returnColor = IMG_Empty;
-		break;
-	}
-	return returnColor;
-}
-
-
-/**
-	Pour rafraichir les cases
-**/
-void Gui_update_display(void) {
-	
-	for (int width = 1; width <= 10; width++)
-	{
-		for (int height = 1; height <= 22; height++)
-		{
-			SetTableCellAttribute(panelHandle, PANEL_TABLE, MakePoint(width,height), ATTR_CTRL_VAL, Gui_get_IMG(Game_get_MAP(width, height)));
-		}
-	}
+int Game_get_etat(void) {
+	return Game_etat;
 }
 
 /**
-	Pour rafraichir les cases de la piece en mouvement
+	Pour obtenir la disposition des blocs
 **/
-void Gui_update_falling_piece(void) {
-	
-	Piece_S Piece_Actuel = Game_get_piece();
-	
+unsigned char Game_get_MAP(int x, int y) {
+	return Game_MAP[y][x];
+}
+
+/**
+	pour definir la piece
+**/
+void Game_set_MAP(int x, int y, unsigned char val) {
+	Game_MAP[y][x] = val;
+}
+
+/**
+	Pour obtenir le type de la piece id
+**/
+char Game_get_next_piece(int id) {
+	return Game_Pieces[id];
+}
+
+/**
+	Pour definir le type de la piece id
+**/
+void Game_set_next_piece(int id, char val) {
+	Game_Pieces[id] = val;
+}
+
+/**
+	Pour obtenir la piece actuelle
+**/
+Piece_S Game_get_piece(void) {
+	return Game_Piece_Actuel;
+}
+
+/**
+	Pour avoir le score
+**/
+long Game_get_score(void) {
+	return score;
+}
+
+/**
+	Pour definir le score
+**/
+void Game_set_score(long s) {
+	score = s;
+	Gui_set_score(score);
+}
+
+/**
+	Pour passer a la piece suivante 
+**/
+void Game_change_piece(void) {
+
+	int color = Pieces[Game_Piece_Actuel.piece_type].couleur;
+	//On fige la piece actuelle sur le terrain
 	for(int x = 0; x<4; x++) {
 		for(int y = 0; y<4; y++) {
-			if(Pieces[Piece_Actuel.piece_type].orientation[Piece_Actuel.orientation][y][x] != 0) { //ce n'est pas du vide
-				if(Piece_Actuel.x + x <12 && Piece_Actuel.x +x >0 && Piece_Actuel.y + y <24  && Piece_Actuel.y + y > 0) { //La piece est dans la terrain d'affichage
-					SetTableCellAttribute(panelHandle, PANEL_TABLE, MakePoint(Piece_Actuel.x + x, Piece_Actuel.y + y), ATTR_CTRL_VAL, Gui_get_IMG(Pieces[Piece_Actuel.piece_type].couleur));
+			if(Pieces[Game_Piece_Actuel.piece_type].orientation[Game_Piece_Actuel.orientation][y][x] != 0) { //ce n'est pas du vide
+				if(Game_Piece_Actuel.x + x <11 && Game_Piece_Actuel.x +x >0 && Game_Piece_Actuel.y + y <24  && Game_Piece_Actuel.y + y > 0) { //La piece est dans la terrain d'affichage
+					Game_MAP[Game_Piece_Actuel.y + y][Game_Piece_Actuel.x + x] = color;
 				}
 			}
 		}
 	}
-}
-
-/**
-	Pour afficher la piece suivante
-**/
-void Gui_update_next_piece(void)  {
-	char piece = Game_get_next_piece(1);
-	for(int x = 1; x<=4; x++) {
-		for(int y= 1; y<=4; y++) {
-			if(Pieces[piece].orientation[0][y-1][x-1])
-				SetTableCellAttribute(panelHandle, PANEL_TABLE_NEXT, MakePoint(x, y), ATTR_CTRL_VAL, Gui_get_IMG(Pieces[piece].couleur));
-			else
-				SetTableCellAttribute(panelHandle, PANEL_TABLE_NEXT, MakePoint(x, y), ATTR_CTRL_VAL, IMG_Empty);
-		}
+	
+	//On actualise l'affichage statique
+	Gui_update_display();
+	
+	//On ragarde s'il y a des lignes
+	Game_check_complete_line();
+	
+	//On decale la liste des pieces
+	for(int i = 0; i<8;i++) {
+		Game_Pieces[i] = Game_Pieces[i+1];
 	}
-}
-
-/**
-	Pour activer le timer
-**/
-void Gui_Timer_enable(void) {
-	SetCtrlAttribute (panelHandle, PANEL_GAME_TIMER, ATTR_ENABLED, 1);
-}
-
-/**
-	Pour desactiver le timer
-**/
-void Gui_Timer_disable(void) {
-	SetCtrlAttribute (panelHandle, PANEL_GAME_TIMER, ATTR_ENABLED, 0);
-}
-
-/**
-	Pour savoir si le timer est active
-**/
-int Gui_Timer_isEnable(void) {
-	int isEnable;
-	GetCtrlAttribute (panelHandle, PANEL_GAME_TIMER, ATTR_ENABLED, &isEnable);
-	return isEnable;
-}
-
-/**
-	Pour definir l'intervalle du timer
-**/
-void Gui_Timer_set_interval(double interval) {
-	SetCtrlAttribute (panelHandle, PANEL_GAME_TIMER, ATTR_INTERVAL, interval);
-}
-
-/**
-	Pour supprimer l'ancienne piece
-**/
-void Gui_clear_old_piece(Piece_S piece) {
-	for(int x = 0; x<4; x++) {
-		for(int y= 0; y<4; y++) {
-			if(piece.x + x <11 && piece.x +x >0 && piece.y + y <24  && piece.y + y > 0) 
-				SetTableCellAttribute(panelHandle, PANEL_TABLE, MakePoint(piece.x + x, piece.y + y), ATTR_CTRL_VAL, Gui_get_IMG(Game_get_MAP(piece.x + x, piece.y + y)));
-		}
+	Game_Pieces[8] = -1;
+	//On regarde s'il y a besoin de regenerer la liste des pieces aÃ‚Â  venir
+	if(Game_Pieces[2] == -1) {
+		Game_generate_piece();
 	}
-}
-
-/**
-	Pour afficher le score
-**/
-void Gui_set_score(int score) {
-	SetCtrlVal (panelHandle, PANEL_SCORE, score);
-}
-
-/**
-	Pour afficher la piece fantome
-**/
-void Gui_display_gosth(Piece_S piece) {
+	Game_Piece_Actuel.piece_type = Game_Pieces[0];
+	Game_Piece_Actuel.x = 4;
+	Game_Piece_Actuel.y = 0;
+	Game_Piece_Actuel.orientation = 0;
+	
+	//On ragarde si le joueur n'a pas perdu
 	for(int x = 0; x<4; x++) {
-		for(int y= 0; y<4; y++) {
-			if(Pieces[piece.piece_type].orientation[piece.orientation][y][x] != 0) {
-				if(piece.x + x <11 && piece.x +x >0 && piece.y + y <24  && piece.y + y > 0) 
-					SetTableCellAttribute(panelHandle, PANEL_TABLE, MakePoint(piece.x + x, piece.y + y), ATTR_CTRL_VAL, IGM_Ghost);
+		for(int y = 0; y<4; y++) {
+			if(Pieces[Game_Piece_Actuel.piece_type].orientation[Game_Piece_Actuel.orientation][x][y] != 0) { //ce n'est pas du vide
+				if(Game_Piece_Actuel.x + x <12 && Game_Piece_Actuel.x +x >0 && Game_Piece_Actuel.y + y <24  && Game_Piece_Actuel.y + y > 0) { //Le carre est dans le terrain d'affichage
+					if(Game_MAP[Game_Piece_Actuel.y + y][Game_Piece_Actuel.x + x] != 0) {
+						Game_set_lose();
+						return;
+					}
+				}
 			}
 		}
 	}
-}
-
-/**
-	Pour mettre le boiutton avec le texte en cours de partie
-**/
-void Gui_set_boutton_ingame(void) {
-	SetCtrlAttribute (panelHandle, PANEL_JOUER,		ATTR_LABEL_TEXT , "PAUSE");
-	SetCtrlAttribute (panelHandle, PANEL_REPRENDRE, ATTR_LABEL_TEXT , "RECOMMENCER");
-}
-
-/**
-	Pour mettre les bouttons avec le texte en pause
-**/
-void Gui_set_boutton_pause(void) {
-	SetCtrlAttribute (panelHandle, PANEL_JOUER,		ATTR_LABEL_TEXT , "REPRENDRE");
-	SetCtrlAttribute (panelHandle, PANEL_REPRENDRE, ATTR_LABEL_TEXT , "RECOMMENCER");
-}
-
-/**
-	Pour mettre les bouttons avec le texte lors d'une defaite
-**/
-void Gui_set_boutton_lose(void) {
-	SetCtrlAttribute (panelHandle, PANEL_JOUER,		ATTR_LABEL_TEXT , "SCORE");
-	SetCtrlAttribute (panelHandle, PANEL_REPRENDRE, ATTR_LABEL_TEXT , "RECOMMENCER");
-}
-
-/**
-	Pour afficher le niveau
-**/
-void Gui_display_level(void) {
-	char niveau[50];
-	sprintf(niveau, "Niveau : %d",Get_level());
-	SetCtrlVal (panelHandle, PANEL_MSG_LEVEL, niveau);
 	
-	char objectif[50];
-	sprintf(objectif, "Objectif : %d",Get_lignes_restantes());
-	SetCtrlVal (panelHandle, PANEL_MSG_OBJECTIF, objectif);
+	//On regarde si la piece peut descendre d'un
+	if(Game_check_collision()) {
+		Game_set_lose();
+		return;
+	}
+	
+	//On affiche la piece
+	Gui_update_falling_piece();
+	Gui_update_next_piece();
+}
+
+/**
+	Pour generer le groupe de pieces suivant
+**/
+void Game_generate_piece(void) {
+	if(Game_Pieces[2] != -1) return; //On evite les problemes si la liste n'est pas vide
+	
+	srand(clock()+95);
+	char done = 0;
+	while(done < 6) {
+		int pieceType = rand()%7;
+		char allow = 1;
+		for(int i = 2; i<9;i++) {
+			if(Game_Pieces[i] == pieceType)
+				allow = 0;
+		}	
+		if(allow) {
+			done++;
+			Game_Pieces[done+1] = pieceType;
+		}
+		//printf("allow: %d, pieceType: %d, done: %d\n",allow, pieceType,done);
+		//GetKey();
+	}
+}
+
+/**
+	Pour faire descendre une piece
+**/
+void Game_Piece_fall(void) {
+	//unsigned int timeSpend = clock();
+	if(Game_etat != INGAME) {
+		needProcessingTimer = 1;
+		return;
+	}
+	needProcessingTimer = 0;
+	Game_etat = PROCESSING_T;
+	//1 -> on affiche la piece
+	Gui_clear_old_piece(Game_Piece_Actuel);
+	Game_Piece_Actuel.y += 1;
+	
+	Game_update_ghost_piece();
+	
+	//Gui_update_display();
+	Gui_update_falling_piece();
+	//2 -> on regarde si il y a pas de colision
+	if(Game_check_collision()) {
+		Game_change_piece();
+	}
+	if(Game_etat == PROCESSING_T)
+		Game_etat = INGAME;
+	//printf("time=%d\n",clock()-timeSpend);
+}
+
+/**
+	Pour decaler une piece vers la droite
+**/
+void Game_Piece_move_right(void) {
+	Game_etat = PROCESSING;
+	//On regarde si la piece ne va pas sortir du champ
+	if(Game_Piece_Actuel.x >=11) {
+		Game_etat = INGAME;
+		return;
+	}
+	for(int x = 3; x>=0; x--) {
+		for(int y = 0; y<4; y++) {
+			if(Pieces[Game_Piece_Actuel.piece_type].orientation[Game_Piece_Actuel.orientation][y][x] != 0) { //ce n'est pas du vide
+				if(Game_Piece_Actuel.x + x >=10) {
+					Game_etat = INGAME;
+					return;
+				} else if(Game_MAP[Game_Piece_Actuel.y + y][Game_Piece_Actuel.x + x + 1] != 0) {
+					Game_etat = INGAME;
+					return;
+				}
+			}
+		}
+	}
+	Gui_clear_old_piece(Game_Piece_Actuel);
+	Game_Piece_Actuel.x += 1;
+	//Gui_update_display();
+	
+	Game_update_ghost_piece();
+	
+	Gui_update_falling_piece();
+	if(Game_check_collision()) {
+		Game_change_piece();
+	}
+	if(Game_etat == PROCESSING)
+		Game_etat = INGAME;
+	if(needProcessingTimer)
+		Game_Piece_fall();
+}
+
+/**
+	Pour decaler une piece vers la gauche
+**/
+void Game_Piece_move_left(void) {
+	Game_etat = PROCESSING;
+	//On regarde si la piece ne va pas sortir du champ
+	if(Game_Piece_Actuel.x <= 0)  {
+		Game_etat = INGAME;
+		return;
+	}
+	for(int x = 0; x<4; x++) {
+		for(int y = 0; y<4; y++) {
+			if(Pieces[Game_Piece_Actuel.piece_type].orientation[Game_Piece_Actuel.orientation][y][x] != 0) { //ce n'est pas du vide
+				if(Game_Piece_Actuel.x-1 + x <1 )  {
+					Game_etat = INGAME;
+					return;
+				} else if(Game_MAP[Game_Piece_Actuel.y + y][Game_Piece_Actuel.x + x - 1] != 0) {
+					Game_etat = INGAME;
+					return;
+				}
+			}
+		}
+	}
+	Gui_clear_old_piece(Game_Piece_Actuel);
+	Game_Piece_Actuel.x -= 1;
+	//Gui_update_display();
+	
+	Game_update_ghost_piece();
+	
+	Gui_update_falling_piece();
+	if(Game_check_collision()) {
+		Game_change_piece();
+	}
+	if(Game_etat == PROCESSING)
+		Game_etat = INGAME;
+	if(needProcessingTimer)
+		Game_Piece_fall();
+}
+
+/**
+	Pour faire tourner une piece
+**/
+void Game_Piece_rotation(void) {
+	
+	int newOrientation = Game_Piece_Actuel.orientation + 1;
+	if(newOrientation >3) newOrientation = 0;
+	
+	Piece_S testPosition = Game_Piece_Actuel;
+	testPosition.orientation = newOrientation;
+	
+	if(!Game_check_position(testPosition)) {
+
+		if(Game_Piece_Actuel.x >=5) { //On tente une correction vers la gauche
+			testPosition.x -=1;
+			if(!Game_check_position(testPosition)) {
+				testPosition.x +=2;
+				if(!Game_check_position(testPosition)) {
+					testPosition.y +=1;
+					if(!Game_check_position(testPosition)) {
+						testPosition.x -=2;
+						if(!Game_check_position(testPosition)) {
+							return;
+						}
+					}
+				}
+			}
+		} else { //On tente une correction vers la droite
+			testPosition.x +=1;
+			if(!Game_check_position(testPosition)) {
+				testPosition.x -=2;
+				if(!Game_check_position(testPosition)) {
+					testPosition.y +=1;
+					if(!Game_check_position(testPosition)) {
+						testPosition.x -=2;
+						if(!Game_check_position(testPosition)) {
+							return;
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	Gui_clear_old_piece(Game_Piece_Actuel);
+	Game_Piece_Actuel = testPosition;
+	//Gui_update_display();
+	
+	Game_update_ghost_piece();
+	
+	Gui_update_falling_piece();
+	if(Game_check_collision()) {
+		Game_change_piece();
+	}
+}
+
+/**
+	Pour verifier que la piece est dans une position correcte
+**/
+int Game_check_position(Piece_S piece) {
+	
+	for(int x = 0; x<4; x++) {
+		for(int y = 0; y<4; y++) {
+			if(Pieces[piece.piece_type].orientation[piece.orientation][y][x] != 0) { //ce n'est pas du vide
+				if(piece.x + x <11 && piece.x + x >0 && piece.y + y <23  && piece.y + y > 0) { //Le carre est dans le terrain d'affichage
+					if(Game_MAP[piece.y + y][piece.x + x] != 0) {
+						return 0;
+					}
+				} else return 0;
+			}
+		}
+	}
+	return 1;
+}
+
+/**
+	Pour verifier si la piece n'est pas au plus bas de sa capacite
+**/
+int Game_check_collision(void) {
+	
+	for(int x = 0; x<4; x++) {
+		for(int y = 3; y>=0; y--) {
+			if(Pieces[Game_Piece_Actuel.piece_type].orientation[Game_Piece_Actuel.orientation][y][x] != 0) { //ce n'est pas du vide
+				if(Game_Piece_Actuel.x + x <11 && Game_Piece_Actuel.x +x >0 && Game_Piece_Actuel.y + y <23  && Game_Piece_Actuel.y + y > 0) { //La piece est dans le terrain d'affichage
+					if(Game_Piece_Actuel.y + y +1 >22) { //La piece est en bas
+						return 1;
+					}
+					if(Game_MAP[Game_Piece_Actuel.y + y+1][Game_Piece_Actuel.x + x] != 0) {
+						return 1;
+					}
+					
+				}
+			}
+		}
+	}
+	
+	return 0;
+}
+
+/**
+	Pour detecter les lignes completes
+**/
+void Game_check_complete_line(void) {
+		
+	int count = 0;
+	int line = 0;
+	
+	int y = 3;
+	
+	while(y>=0) {
+		count = 0;
+		if(Game_Piece_Actuel.y + y < 23 && Game_Piece_Actuel.y + y > 0) {
+			for(int x = 1; x<11; x++) {
+				if(Game_MAP[Game_Piece_Actuel.y + y][x] != 0) count++;
+			}
+			if(count == 10) {//La ligne est complete
+				Game_remove_line(Game_Piece_Actuel.y + y);
+				line++;
+			} else y--;
+		} else y--;
+	}
+	if(line !=0) {
+		score += 10*(line*line);
+		Gui_set_score(score);
+		Update_leveling(line);
+
+	}
+}
+
+/**
+	Pour supprimer une ligne
+**/
+void Game_remove_line(int line) {
+	for(int y = line; y>1; y--) {
+		for(int x = 1; x<11; x++) {
+			Game_MAP[y][x] = Game_MAP[y-1][x];
+		}
+	}
+	for(int x = 1; x<11; x++) {
+		Game_MAP[0][x] = 0;
+	}
+	Gui_update_display();
+}
+
+/**
+	Pour actualiser la piece fantome
+**/
+void Game_update_ghost_piece(void) {
+	Gui_clear_old_piece(Game_piece_ghost);
+	Game_piece_ghost = Game_Piece_Actuel;
+	while(Game_check_position(Game_piece_ghost)) {
+		Game_piece_ghost.y +=1;
+	}
+	Game_piece_ghost.y -=1;
+	
+	Gui_display_gosth(Game_piece_ghost);
+}
+
+/**
+	Pour mettre Ã  jour le niveau
+**/
+
+void Update_leveling(int lignes)
+{
+	if(level <= 9)
+	{
+		lignes_eclatees += lignes;
+		if(lignes_eclatees >= (10 + (5*(level-1))))
+		{
+			level++;
+			lignes_eclatees -= (10 + (5*(level-1)));
+			Gui_Timer_set_interval(0.6 - ((double)(level)/(double)(10))*0.5);
+		}
+	}
+	Gui_display_level();
+}
+
+/**
+	Pour renvoyer le niveau atteint par le joueur
+**/
+int Get_level()
+{
+	return level;
+}
+
+/**
+	Pour renvoyer les lignes restantes avant le prochain niveau
+**/
+int Get_lignes_restantes(void)
+{
+	return ((10 + (5*(level-1))) - lignes_eclatees)	;
 }
