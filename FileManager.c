@@ -184,6 +184,52 @@ void File_save_user(User_profil *Profil) {
 	fclose(save);
 }
 
+/**
+	Pour récupérer le fichier de high-score
+**/
+Get_highscore(Score *scores)
+{
+	FILE *save;
+	char linebuffer[50];
+	int counter = 0;
+	save = fopen("highscore.dat","rd");
+	
+	while(fgets(linebuffer, 20, save) && counter < 20)
+	{
+		if((counter%2) == 0)
+		{
+			strcpy(scores[counter/2].username, linebuffer);
+		}
+		else if(counter%2)
+		{
+			scores[counter/2].score				= (long)strtol(linebuffer, NULL, 10);	
+		}
+		counter ++;
+	}
+	
+	
+	
+	fclose(save);
+	return scores;
+}
+
+/**
+	Pour réécrire le fichier de high-score
+**/
+void Update_highscore(Score* scores)
+{
+	FILE *save;
+	save = fopen("highscore.dat", "w");
+	
+	for(int i = 0; i < 10; i++)
+	{
+		fprintf(save, "%s%d\n", scores[i].username, scores[i].score);	
+	}
+	
+	fclose(save);
+	
+}
+
 
 
 

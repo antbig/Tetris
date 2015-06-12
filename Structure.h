@@ -85,6 +85,15 @@ typedef struct
 	char			musique;
 	
 } User_profil;
+/**
+	Le score
+**/
+typedef struct
+{
+	char			username[50];
+	long				score;
+}Score;
+
 
 /**
 	Le liste de toutes les pieces du jeu

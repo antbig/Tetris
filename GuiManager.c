@@ -144,7 +144,7 @@ int Gui_get_Interface(void) {
 
 
 /**
-	Pour obtenir l'image aÂ  partir de la couleur
+	Pour obtenir l'image a  partir de la couleur
 **/
 int Gui_get_IMG(int color) {
 	

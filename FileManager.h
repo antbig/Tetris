@@ -33,5 +33,16 @@ void File_get_user(char *username[50], User_profil *newProfil);
 **/
 void File_save_user(User_profil *Profil);
 
+/**
+	Pour récupérer le fichier de high-score
+**/
+Get_highscore(Score *scores);
+
+/**
+	Pour réécrire le fichier de high-score
+**/
+void Update_highscore(Score* scores);
+
+
 
 #endif

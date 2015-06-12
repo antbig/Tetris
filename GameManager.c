@@ -18,7 +18,7 @@
 #include "Structure.h"
 #include "FileManager.h"
 
-//La liste des pieces aÂ venir
+//La liste des pieces a venir
 //0=> Piece actuelle
 //1=> Piece Suivante
 static char				Game_Pieces[9] = {-1,-1,-1,-1,-1,-1,-1,-1};
@@ -41,6 +41,8 @@ static int				level = 1;
 
 static long				lignes_eclatees = 0;
 
+static Score			highscores[10];
+
 
 
 /**
@@ -48,6 +50,7 @@ static long				lignes_eclatees = 0;
 **/
 void Game_init(void) {
 	int 	valid = 0;
+	Get_highscore(highscores);
 	char	username[50];
 
 	while(!valid) {
@@ -208,7 +211,7 @@ void Game_set_lose(void) {
 	
 	Gui_update_falling_piece();
 	
-	//On remplit l'ÃƒÂ©cran de toutes les couleurs
+	//On remplit l'Ã©cran de toutes les couleurs
 	for(int x =0; x<12; x++) {
 		for(int y =0; y<24; y++) {
 			Game_MAP[y][x] = (rand() % 7 + 1);
@@ -216,7 +219,7 @@ void Game_set_lose(void) {
 		
 	}
 	
-	user.backup_level = 0; //pour indiquer que la sauvegarde ne doit pas etre effectuÃ© sur cette partie
+	user.backup_level = 0; //pour indiquer que la sauvegarde ne doit pas etre effectué sur cette partie
 	
 	Gui_set_boutton_lose();
 	
@@ -225,6 +228,55 @@ void Game_set_lose(void) {
 	File_save_user(&user);
 	
 	MessagePopup ("Dommage", "Vous avez perdu");
+	
+	for(int i = 9; i > 0; i--)
+	{
+		if(score >= highscores[i].score)
+		{
+			if(i == 9)
+			{
+				strcpy(highscores[i].username, user.username); 
+				strcat(highscores[i].username, "\n");
+				highscores[i].score = score;
+			}
+			else
+			{
+				highscores[i+1] = highscores[i];
+				strcpy(highscores[i].username, user.username); 
+				strcat(highscores[i].username, "\n");
+				highscores[i].score = score;
+				
+			}
+		}
+	}
+	
+	Update_highscore(highscores);
+	
+	char str[1000];
+	
+	sprintf(str,"1. \t%s\t%d\n2. \t%s\t%d\n3. \t%s\t%d\n4. \t%s\t%d\n5. \t%s\t%d\n6. \t%s\t%d\n7. \t%s\t%d\n8. \t%s\t%d\n9. \t%s\t%d\n10.\t%s\t%d",
+					highscores[0].username,
+					highscores[0].score,
+					highscores[1].username,
+					highscores[1].score,
+					highscores[2].username,
+					highscores[2].score,
+					highscores[3].username,
+					highscores[3].score,
+					highscores[4].username,
+					highscores[4].score,
+					highscores[5].username,
+					highscores[5].score,
+					highscores[6].username,
+					highscores[6].score,
+					highscores[7].username,
+					highscores[7].score,
+					highscores[8].username,
+					highscores[8].score,
+					highscores[9].username,
+					highscores[9].score); 
+	
+	MessagePopup ("Highscores", str);
 
 }
 
@@ -313,7 +365,7 @@ void Game_change_piece(void) {
 		Game_Pieces[i] = Game_Pieces[i+1];
 	}
 	Game_Pieces[8] = -1;
-	//On regarde s'il y a besoin de regenerer la liste des pieces aÃ‚Â  venir
+	//On regarde s'il y a besoin de regenerer la liste des pieces aÂ  venir
 	if(Game_Pieces[2] == -1) {
 		Game_generate_piece();
 	}
@@ -636,7 +688,7 @@ void Game_update_ghost_piece(void) {
 }
 
 /**
-	Pour mettre Ã  jour le niveau
+	Pour mettre à jour le niveau
 **/
 
 void Update_leveling(int lignes)

@@ -1,8 +1,8 @@
 [Workspace Header]
 Version = 1300
-Pathname = "/d/Programmation/c/Tetris/Tetris.cws"
-CVI Dir = "/c/program files (x86)/national instruments/cvi2013"
-CVI Shared Dir = "/C/Program Files (x86)/National Instruments/Shared/CVI"
+Pathname = "/c/Users/pierre.david/Downloads/Tetris-master (2)/Tetris-master/Tetris.cws"
+CVI Dir = "/c/logicielge1/national instruments/cvi2013"
+CVI Shared Dir = "/C/LogicielGe1/National Instruments/Shared/CVI"
 CVI Pub Local Dir = "/C/ProgramData/National Instruments/CVI2013"
 CVI Pub Global Dir = "/C/ProgramData/National Instruments/CVI"
 IVI Standard Root Dir = "/C/Program Files (x86)/IVI Foundation/IVI"
@@ -12,11 +12,11 @@ VXIplug&play Framework 64-bit Dir = "/C/Program Files/IVI Foundation/VISA/win64"
 Number of Projects = 1
 Active Project = 1
 Project 0001 = "Tetris.prj"
-Drag Bar Left = 218
-Window Top = 31
-Window Left = 565
-Window Bottom = 533
-Window Right = 1355
+Drag Bar Left = 260
+Window Top = -103
+Window Left = 1842
+Window Bottom = 399
+Window Right = 2739
 Maximized = True
 Maximized Children = True
 Max32 Number Of Errors = 20
@@ -30,9 +30,9 @@ Save Changes Before Compiling = "Always"
 Hide Windows = False
 Break At First Statement = False
 Sort Type = "File Name"
-Number of Opened Files = 5
+Number of Opened Files = 10
 Window Confinement Region Enabled = True
-MainColumnWidth = 201
+MainColumnWidth = 243
 FileDateColumnWidth = 70
 FileSizeColumnWidth = 70
 
@@ -46,166 +46,146 @@ Batch Build Release = False
 Batch Build Debug = False
 
 [File 0001]
-Path = "/c/Program Files (x86)/National Instruments/CVI2013/sdk/include/WinDef.h"
-File Type = "Include"
-Disk Date = 3455082000
-In Projects = ""
-Window Top = 219
-Window Left = 106
-Window Z-Order = 5
-Source Window State = "1,167,167,167,8,13,13,0,3,86,0,0,0,0,0,25,152,0,167,8,349,731,1,0,"
-
-[File 0002]
-Path = "/c/Program Files (x86)/National Instruments/CVI2013/include/cvidef.h"
-File Type = "Include"
-Disk Date = 3455082000
-In Projects = ""
-Window Top = 250
-Window Left = 122
-Window Z-Order = 4
-Source Window State = "1,206,206,206,29,33,33,0,3,86,0,0,0,0,0,25,197,0,206,29,349,731,1,0,"
-
-[File 0003]
-Path = "/d/Programmation/c/Tetris/Interface.uir"
+Path = "/c/Users/pierre.david/Downloads/Tetris-master (2)/Tetris-master/Interface.uir"
 File Type = "User Interface Resource"
-Disk Date = 3516772629
+Disk Date = 3516849592
 In Projects = "1,"
 Window Top = 33
 Window Left = 10
 Window Height = 349
 Window Width = 731
-Window Z-Order = 1
+Window Z-Order = 10
 
-[File 0004]
-Path = "/c/Program Files (x86)/National Instruments/CVI2013/include/userint.h"
-File Type = "Include"
-Disk Date = 3455082000
-In Projects = ""
-Window Top = 64
-Window Left = 26
-Window Z-Order = 3
-Source Window State = "1,1673,1673,1673,8,19,19,0,0,80,0,0,0,0,0,25,1671,0,1686,107,349,683,1,0,"
-
-[File 0005]
-Path = "/d/Programmation/c/Tetris/CallBack.c"
+[File 0002]
+Path = "/c/Users/pierre.david/Downloads/Tetris-master (2)/Tetris-master/Main.c"
 File Type = "CSource"
-Disk Date = 3516770813
-In Projects = "1,"
-Window Top = 157
-Window Left = 74
-Source Window State = "1,92,92,92,13,24,24,0,0,88,0,0,0,0,0,25,68,0,92,24,349,747,1,0,"
-
-[File 0006]
-Path = "/d/Programmation/c/Tetris/FileManager.c"
-File Type = "CSource"
-Disk Date = 3516771554
-In Projects = "1,"
-Window Top = 157
-Window Left = 74
-Source Window State = "1,99,99,99,11,19,19,0,0,80,0,0,0,0,0,25,123,0,120,61,349,683,1,0,"
-
-[File 0007]
-Path = "/d/Programmation/c/Tetris/GameManager.c"
-File Type = "CSource"
-Disk Date = 3516771710
-In Projects = "1,"
-Window Top = 157
-Window Left = 74
-Source Window State = "1,89,89,89,52,62,62,0,0,86,0,0,0,0,0,25,0,0,0,0,349,731,1,0,"
-
-[File 0008]
-Path = "/d/Programmation/c/Tetris/GuiManager.c"
-File Type = "CSource"
-Disk Date = 3516767342
-In Projects = "1,"
-Window Top = 188
-Window Left = 38
-Source Window State = "1,221,221,221,17,41,41,0,0,86,0,0,0,0,0,25,193,0,209,108,349,731,1,0,"
-
-[File 0009]
-Path = "/d/Programmation/c/Tetris/Main.c"
-File Type = "CSource"
-Disk Date = 3516680655
+Disk Date = 3516849592
 In Projects = "1,"
 Window Top = 126
 Window Left = 58
-Window Z-Order = 2
-Source Window State = "1,0,29,29,0,3,3,0,0,80,0,0,0,0,0,25,2,0,28,65,349,683,1,0,"
+Window Z-Order = 4
+Source Window State = "1,0,29,29,0,3,3,0,0,80,0,0,0,0,0,25,7,0,27,4,349,683,1,0,"
 
-[File 0010]
-Path = "/d/Programmation/c/Tetris/SoundManager.c"
+[File 0003]
+Path = "/c/Users/pierre.david/Downloads/Tetris-master (2)/Tetris-master/CallBack.c"
 File Type = "CSource"
-Disk Date = 3516771693
+Disk Date = 3516849592
+In Projects = "1,"
+Window Top = 157
+Window Left = 74
+Window Z-Order = 5
+Source Window State = "1,92,92,92,13,24,24,0,0,88,0,0,0,0,0,25,127,0,139,8,349,747,1,0,"
+
+[File 0004]
+Path = "/c/Users/pierre.david/Downloads/Tetris-master (2)/Tetris-master/FileManager.c"
+File Type = "CSource"
+Disk Date = 3516861837
+In Projects = "1,"
+Window Top = 157
+Window Left = 74
+Window Z-Order = 2
+Source Window State = "1,225,225,225,30,31,31,0,0,80,0,0,0,0,0,25,139,0,200,12,349,683,1,0,"
+
+[File 0005]
+Path = "/c/Users/pierre.david/Downloads/Tetris-master (2)/Tetris-master/GameManager.c"
+File Type = "CSource"
+Disk Date = 3516862532
+In Projects = "1,"
+Window Top = 157
+Window Left = 74
+Window Z-Order = 1
+Source Window State = "1,238,239,238,0,0,0,0,0,123,0,0,0,0,0,40,111,0,131,0,349,731,1,0,"
+
+[File 0006]
+Path = "/c/Users/pierre.david/Downloads/Tetris-master (2)/Tetris-master/GuiManager.c"
+File Type = "CSource"
+Disk Date = 3516850204
+In Projects = "1,"
+Window Top = 188
+Window Left = 38
+Window Z-Order = 3
+Source Window State = "1,0,328,0,0,0,0,0,0,86,0,0,0,0,0,25,86,0,98,4,349,731,1,0,"
+
+[File 0007]
+Path = "/c/Users/pierre.david/Downloads/Tetris-master (2)/Tetris-master/SoundManager.c"
+File Type = "CSource"
+Disk Date = 3516849592
 In Projects = "1,"
 Window Top = 157
 Window Left = 74
 Source Window State = "1,11,12,12,0,22,22,0,0,0,0,0,0,0,0,0,3,0,26,18,349,731,1,0,"
 
-[File 0011]
-Path = "/d/Programmation/c/Tetris/Utils.c"
+[File 0008]
+Path = "/c/Users/pierre.david/Downloads/Tetris-master (2)/Tetris-master/Utils.c"
 File Type = "CSource"
-Disk Date = 3516709506
+Disk Date = 3516849592
 In Projects = "1,"
 Window Top = 126
 Window Left = 58
 Source Window State = "1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,14,21,349,683,1,0,"
 
-[File 0012]
-Path = "/d/Programmation/c/Tetris/CallBack.h"
+[File 0009]
+Path = "/c/Users/pierre.david/Downloads/Tetris-master (2)/Tetris-master/CallBack.h"
 File Type = "Include"
-Disk Date = 3516764956
+Disk Date = 3516849592
 In Projects = "1,"
 Window Top = 157
 Window Left = 74
 Source Window State = "1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,20,15,349,683,1,0,"
 
-[File 0013]
-Path = "/d/Programmation/c/Tetris/FileManager.h"
+[File 0010]
+Path = "/c/Users/pierre.david/Downloads/Tetris-master (2)/Tetris-master/FileManager.h"
 File Type = "Include"
-Disk Date = 3516764815
-In Projects = "1,"
-Source Window State = "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,"
-
-[File 0014]
-Path = "/d/Programmation/c/Tetris/GameManager.h"
-File Type = "Include"
-Disk Date = 3516770068
+Disk Date = 3516859211
 In Projects = "1,"
 Window Top = 33
 Window Left = 10
-Source Window State = "1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,17,22,349,683,1,0,"
+Window Z-Order = 7
+Source Window State = "1,38,39,38,0,0,0,0,3,80,0,0,0,0,0,25,7,0,38,28,349,683,1,0,"
 
-[File 0015]
-Path = "/d/Programmation/c/Tetris/GuiManager.h"
+[File 0011]
+Path = "/c/Users/pierre.david/Downloads/Tetris-master (2)/Tetris-master/GameManager.h"
 File Type = "Include"
-Disk Date = 3516772535
+Disk Date = 3516851844
+In Projects = "1,"
+Window Top = 33
+Window Left = 10
+Window Z-Order = 8
+Source Window State = "1,0,169,0,0,0,0,0,0,80,0,0,0,0,0,25,87,0,150,71,349,683,1,0,"
+
+[File 0012]
+Path = "/c/Users/pierre.david/Downloads/Tetris-master (2)/Tetris-master/GuiManager.h"
+File Type = "Include"
+Disk Date = 3516850054
 In Projects = "1,"
 Window Top = 188
 Window Left = 90
-Source Window State = "1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,31,0,54,47,349,747,1,0,"
+Window Z-Order = 9
+Source Window State = "1,0,132,0,0,0,0,0,3,88,0,0,0,0,0,25,92,0,132,0,349,747,1,0,"
 
-[File 0016]
-Path = "/d/Programmation/c/Tetris/SoundManager.h"
+[File 0013]
+Path = "/c/Users/pierre.david/Downloads/Tetris-master (2)/Tetris-master/SoundManager.h"
 File Type = "Include"
-Disk Date = 3516771764
+Disk Date = 3516849592
 In Projects = "1,"
 Window Top = 95
 Window Left = 42
-Source Window State = "1,21,21,21,0,28,28,0,0,86,0,20,0,20,0,25,16,0,37,27,349,731,1,0,"
+Source Window State = "1,21,21,21,0,28,28,0,0,0,0,20,0,20,0,0,16,0,37,27,349,731,1,0,"
 
-[File 0017]
-Path = "/d/Programmation/c/Tetris/Structure.h"
+[File 0014]
+Path = "/c/Users/pierre.david/Downloads/Tetris-master (2)/Tetris-master/Structure.h"
 File Type = "Include"
-Disk Date = 3516767944
+Disk Date = 3516854826
 In Projects = "1,"
 Window Top = 306
 Window Left = 202
-Source Window State = "1,212,212,212,6,8,8,0,0,0,0,0,0,0,0,0,53,0,79,9,349,731,1,0,"
+Window Z-Order = 6
+Source Window State = "1,93,93,93,4,7,7,0,0,86,0,0,0,0,0,25,59,0,94,78,349,731,1,0,"
 
-[File 0018]
-Path = "/d/Programmation/c/Tetris/Utils.h"
+[File 0015]
+Path = "/c/Users/pierre.david/Downloads/Tetris-master (2)/Tetris-master/Utils.h"
 File Type = "Include"
-Disk Date = 3516709383
+Disk Date = 3516849592
 In Projects = "1,"
 Source Window State = "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,"
 

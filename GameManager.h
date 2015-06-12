@@ -97,7 +97,7 @@ long Game_get_score(void);
 void Game_set_score(long s);
 
 /**
-	Pour passer ÃƒÂ  la piece suivante 
+	Pour passer Ã  la piece suivante 
 **/
 void Game_change_piece(void);
 
@@ -152,7 +152,7 @@ void Game_remove_line(int line);
 void Game_update_ghost_piece(void);
 
 /**
-	Pour mettre Ã  jour le niveau
+	Pour mettre à jour le niveau
 **/
 void Update_leveling(int lignes);
 

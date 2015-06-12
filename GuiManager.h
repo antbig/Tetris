@@ -5,7 +5,7 @@
 **   Par Leonard Antoine <antoine.leonard@u-psud.fr> **
 **    et David   Pierre  <pierre.david1@u-psud.fr>   **
 **													 **
-**	 tous droits rÃƒÂ©servÃƒÂ©s							 **
+**	 tous droits rÃ©servÃ©s							 **
 ** 													 **
 *******************************************************/
 
@@ -55,7 +55,7 @@ void Gui_remove_Border(int panel, int image);
 int Gui_get_Interface(void);
 
 /**
-	Pour obtenir l'image aÂ  partir de la couleur
+	Pour obtenir l'image a  partir de la couleur
 **/
 int Gui_get_IMG(int color);
 
