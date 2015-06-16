@@ -220,16 +220,12 @@ void Game_set_lose(void) {
 	}
 	
 	user.backup_level = 0; //pour indiquer que la sauvegarde ne doit pas etre effectué sur cette partie
-	
 	Gui_set_boutton_lose();
-	
 	Gui_update_display();
-
 	File_save_user(&user);
-	
 	MessagePopup ("Dommage", "Vous avez perdu");
 	
-	for(int i = 9; i > 0; i--)
+	for(int i = 9; i >= 0; i--)
 	{
 		if(score >= highscores[i].score)
 		{
@@ -245,39 +241,10 @@ void Game_set_lose(void) {
 				strcpy(highscores[i].username, user.username); 
 				strcat(highscores[i].username, "\n");
 				highscores[i].score = score;
-				
 			}
 		}
 	}
-	
-	Update_highscore(highscores);
-	
-	char str[1000];
-	
-	sprintf(str,"1. \t%s\t%d\n2. \t%s\t%d\n3. \t%s\t%d\n4. \t%s\t%d\n5. \t%s\t%d\n6. \t%s\t%d\n7. \t%s\t%d\n8. \t%s\t%d\n9. \t%s\t%d\n10.\t%s\t%d",
-					highscores[0].username,
-					highscores[0].score,
-					highscores[1].username,
-					highscores[1].score,
-					highscores[2].username,
-					highscores[2].score,
-					highscores[3].username,
-					highscores[3].score,
-					highscores[4].username,
-					highscores[4].score,
-					highscores[5].username,
-					highscores[5].score,
-					highscores[6].username,
-					highscores[6].score,
-					highscores[7].username,
-					highscores[7].score,
-					highscores[8].username,
-					highscores[8].score,
-					highscores[9].username,
-					highscores[9].score); 
-	
-	MessagePopup ("Highscores", str);
-
+	Popup_highscores();
 }
 
 /**
@@ -720,4 +687,37 @@ int Get_level()
 int Get_lignes_restantes(void)
 {
 	return ((10 + (5*(level-1))) - lignes_eclatees)	;
+}
+
+/**
+	Pour afficher la Pop-up des high scores
+**/
+void Popup_highscores(void)
+{
+	Update_highscore(highscores);
+	char str[1000];
+	sprintf(str,"1. \t%s\t%d\n2. \t%s\t%d\n3. \t%s\t%d\n4. \t%s\t%d\n5. \t%s\t%d\n6. \t%s\t%d\n7. \t%s\t%d\n8. \t%s\t%d\n9. \t%s\t%d\n10.\t%s\t%d",
+					highscores[0].username,
+					highscores[0].score,
+					highscores[1].username,
+					highscores[1].score,
+					highscores[2].username,
+					highscores[2].score,
+					highscores[3].username,
+					highscores[3].score,
+					highscores[4].username,
+					highscores[4].score,
+					highscores[5].username,
+					highscores[5].score,
+					highscores[6].username,
+					highscores[6].score,
+					highscores[7].username,
+					highscores[7].score,
+					highscores[8].username,
+					highscores[8].score,
+					highscores[9].username,
+					highscores[9].score); 
+	MessagePopup ("Highscores", str);
+
+	
 }

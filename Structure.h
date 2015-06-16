@@ -47,7 +47,7 @@
 	0=> vide;
 	1=> piece;
 ***/
-typedef unsigned char COMPNENT[4][4];
+typedef unsigned char COMPONENT[4][4];
 
 /**
 	Une piece 
@@ -57,12 +57,16 @@ typedef unsigned char COMPNENT[4][4];
 **/
 typedef struct
 {
-	COMPNENT	orientation[4];
+	COMPONENT	orientation[4];
 	int			couleur;
 }Piece;
 
 /**
 	La piece actuelle
+	Contient :
+		Le type de pièce
+		Les coordonnées
+		L'orientation de la pièce dans le jeu
 **/
 typedef struct
 {
@@ -74,6 +78,13 @@ typedef struct
 
 /**
 	Le profil d'un joueur
+	Contient :
+		Un nom d'utilisateur
+		Un meilleur score
+		Un dernier score sauvegardé
+		Un dernier niveau sauvegardé
+		La dernière configuration de jeu sauvegardée
+		L'indication de mute / unmute de la musique de jeu
 **/
 typedef struct
 {
@@ -87,6 +98,9 @@ typedef struct
 } User_profil;
 /**
 	Le score
+	Contient
+		Le nom de l'utilisateur qui a atteint le score
+		Le score en question
 **/
 typedef struct
 {

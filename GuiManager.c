@@ -104,6 +104,9 @@ void Gui_display(void) {
 
 /**
 	Pour supprimer la bordure de la fenetre
+	Paramètre :
+		Int panel		=> L'identifiant du panel dont on veut retirer la bordure
+		Int image		=> L'identifiant du contrôle qui représente la nouvelle fenêtre
 **/
 void Gui_remove_Border(int panel, int image) {
 	
@@ -137,6 +140,8 @@ void Gui_remove_Border(int panel, int image) {
 
 /**
 	Pour recuperer l'interface
+	Renvoie :
+		L'identifiant du panel
 **/
 int Gui_get_Interface(void) {
 		return panelHandle;
@@ -145,6 +150,10 @@ int Gui_get_Interface(void) {
 
 /**
 	Pour obtenir l'image aÂ  partir de la couleur
+	Paramètre :
+		Int color		=> La couleur de la pièce que l'on veut obtenir
+	Renvoie :
+		Int				=> Un entier correspondant à l'identifiant de la pièce
 **/
 int Gui_get_IMG(int color) {
 	
@@ -242,7 +251,9 @@ void Gui_Timer_disable(void) {
 }
 
 /**
-	Pour savoir si le timer est active
+	Pour savoir si le timer est actif
+	Renvoie :
+		Int				=> Un booléen indiquant si le timer est actif (0 non, 1 oui)
 **/
 int Gui_Timer_isEnable(void) {
 	int isEnable;
@@ -252,6 +263,8 @@ int Gui_Timer_isEnable(void) {
 
 /**
 	Pour definir l'intervalle du timer
+	Paramètre :
+		Double interval	=> La nouvelle valeur entre 2 ticks de timer
 **/
 void Gui_Timer_set_interval(double interval) {
 	SetCtrlAttribute (panelHandle, PANEL_GAME_TIMER, ATTR_INTERVAL, interval);
@@ -259,6 +272,8 @@ void Gui_Timer_set_interval(double interval) {
 
 /**
 	Pour supprimer l'ancienne piece
+	Paramètre :
+		Piece_S piece	=> La pièce à effacer
 **/
 void Gui_clear_old_piece(Piece_S piece) {
 	for(int x = 0; x<4; x++) {
@@ -271,6 +286,8 @@ void Gui_clear_old_piece(Piece_S piece) {
 
 /**
 	Pour afficher le score
+	Paramètre :
+		Int score		=> La nouvelle valeur du score à afficher
 **/
 void Gui_set_score(int score) {
 	SetCtrlVal (panelHandle, PANEL_SCORE, score);
@@ -278,6 +295,8 @@ void Gui_set_score(int score) {
 
 /**
 	Pour afficher la piece fantome
+	Paramètre :
+		Piece_S piece	=> La pièce dont il faut afficher le fantôme
 **/
 void Gui_display_gosth(Piece_S piece) {
 	for(int x = 0; x<4; x++) {
@@ -291,7 +310,7 @@ void Gui_display_gosth(Piece_S piece) {
 }
 
 /**
-	Pour mettre le boiutton avec le texte en cours de partie
+	Pour mettre le bouton avec le texte en cours de partie
 **/
 void Gui_set_boutton_ingame(void) {
 	SetCtrlAttribute (panelHandle, PANEL_JOUER,		ATTR_LABEL_TEXT , "PAUSE");
@@ -299,7 +318,7 @@ void Gui_set_boutton_ingame(void) {
 }
 
 /**
-	Pour mettre les bouttons avec le texte en pause
+	Pour mettre les boutons avec le texte en pause
 **/
 void Gui_set_boutton_pause(void) {
 	SetCtrlAttribute (panelHandle, PANEL_JOUER,		ATTR_LABEL_TEXT , "REPRENDRE");
@@ -307,7 +326,7 @@ void Gui_set_boutton_pause(void) {
 }
 
 /**
-	Pour mettre les bouttons avec le texte lors d'une defaite
+	Pour mettre les boutons avec le texte lors d'une defaite
 **/
 void Gui_set_boutton_lose(void) {
 	SetCtrlAttribute (panelHandle, PANEL_JOUER,		ATTR_LABEL_TEXT , "SCORE");

@@ -49,7 +49,7 @@ void Game_pause(void);
 /**
 	Pour quitter la pause
 **/
-void Game_quit_pause(void);
+void Game_quit_pause(void);						   
 
 /**
 	Pour regarder si la partie est perdue
@@ -165,5 +165,10 @@ int Get_level(void);
 	Pour renvoyer les lignes restantes avant le prochain niveau
 **/
 int Get_lignes_restantes(void);
+
+/**
+	Pour afficher la Pop-up des high scores
+**/
+void Popup_highscores(void);
 
 #endif
